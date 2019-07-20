@@ -1,7 +1,7 @@
-const InvalidArgumentError = require('../exceptions/invalid-argument-exceptions');
+import InvalidArgumentError from '../exceptions/invalid-argument-error';
 
 /**
- * Check whether the variable is an instance of string
+ * Check whether the variable is a string.
  *
  * @param {any} s - The variable to check
  */
@@ -12,8 +12,11 @@ export const isString = s => typeof s === 'string' || s instanceof String;
  *
  * @param {String} str The string to shuffle.
  * @returns {String} The shuffled string.
+ * @throws {InvalidArgumentError}
  */
 export function shuffle(str) {
+  if (!isString(str)) throw new InvalidArgumentError('str must be a string');
+
   return str.split('').sort(() => Math.random() - 0.5).join('');
 }
 
@@ -27,8 +30,9 @@ export function shuffle(str) {
  * @throws {InvalidArgumentError}
  */
 export function replaceAt(str, index, content) {
-  if (!Number.isFinite(index)) throw new InvalidArgumentError('index is not valid');
-  if (!String.isString(content)) throw new InvalidArgumentError('content is not valid');
+  if (!isString(str)) throw new InvalidArgumentError('str must be a string');
+  if (!Number.isInteger(index)) throw new InvalidArgumentError('index must be an integer');
+  if (!isString(content)) throw new InvalidArgumentError('content is not valid');
 
   return `${str.substr(0, index)}${content}${str.substr(index + content.length)}`;
 }
@@ -39,8 +43,14 @@ export function replaceAt(str, index, content) {
  * @param {String} str The main string
  * @param {String} otherString The other string with which check the length.
  * @returns {Boolean}
+ * @throws {InvalidArgumentError}
  */
-export const sameLength = (str, otherStr) => this.length === otherStr.length;
+export const sameLength = (str, otherStr) => {
+  if (!isString(str)) throw new InvalidArgumentError('str must be a string');
+  if (!isString(otherStr)) throw new InvalidArgumentError('otherStr must be a string');
+
+  return str.length === otherStr.length;
+}
 
 /**
  * Check if the current string has the same first
@@ -49,8 +59,14 @@ export const sameLength = (str, otherStr) => this.length === otherStr.length;
  * @param {String} str The main string
  * @param {String} otherString The other string with which check the first char.
  * @returns {Boolean}
+ * @throws {InvalidArgumentError}
  */
-export const sameFirstChar = (str, otherString) => str[0] === otherString[0];
+export const sameFirstChar = (str, otherString) => {
+  if (!isString(str)) throw new InvalidArgumentError('str must be a string');
+  if (!isString(otherString)) throw new InvalidArgumentError('otherString must be a string');
+
+  return str[0] === otherString[0];
+}
 
 /**
  * Check if the current string has the same last
@@ -59,5 +75,11 @@ export const sameFirstChar = (str, otherString) => str[0] === otherString[0];
  * @param {String} str The main string
  * @param {String} otherString The other string with which check the last char.
  * @returns {Boolean}
+ * @throws {InvalidArgumentError}
  */
-export const sameLastChar = (str, otherStr) => str[str.length - 1] === otherStr[otherStr.length - 1];
+export const sameLastChar = (str, otherStr) => {
+  if (!isString(str)) throw new InvalidArgumentError('str must be a string');
+  if (!isString(otherStr)) throw new InvalidArgumentError('otherStr must be a string');
+
+  return str[str.length - 1] === otherStr[otherStr.length - 1];
+}

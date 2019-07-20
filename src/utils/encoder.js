@@ -1,6 +1,6 @@
 // Internal
-const InvalidArgumentError = require('../infrastructure/exceptions/invalid-argument-exceptions');
-const S = require('../infrastructure/extensions/string');
+import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
+import * as S from '../infrastructure/extensions/string';
 
 /**
  * Try to shuffle the word found by RegExp, trying some times
@@ -12,7 +12,7 @@ const S = require('../infrastructure/extensions/string');
  * @returns {String} The shuffled string
  */
 function shuffleWord(regExpMatch, retry = 0) {
-  const shuffledWord = regExpMatch[0].replaceAt(1, S.shuffle(regExpMatch[1]));
+  const shuffledWord = S.replaceAt(regExpMatch[0], 1, S.shuffle(regExpMatch[1]));
 
   if (shuffledWord !== regExpMatch[0]) return shuffledWord; // success case
   else if (retry === 3) return regExpMatch[0]; // fail case
@@ -27,7 +27,7 @@ function shuffleWord(regExpMatch, retry = 0) {
  * @returns {String} The encoded text with the bag of the original encoded words.
  */
 export function encoder(text) {
-  if (!String.isString(text)) throw new InvalidArgumentError('text must be a string');
+  if (!S.isString(text)) throw new InvalidArgumentError('text must be a string');
 
   const re = /[a-zA-Zàòèéùì]{1}([a-zA-Zàòèéùì]{2,})[a-zA-Zàòèéùì]{1}/g;
 

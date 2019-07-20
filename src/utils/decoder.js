@@ -1,13 +1,10 @@
 // Internal
-require('../infrastructure/exceptions/invalid-argument-exceptions');
+import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
+import * as S from '../infrastructure/extensions/string';
 
-const sameFirstChar = ;
-
-const sameLastChar = (word, duck) => word[word.length - 1] === duck[duck.length - 1];
-
-const isSimilar = (word, duck) => word.sameLength(duck)
-  && sameFirstChar(word, duck)
-  && sameLastChar(word, duck);
+const isSimilar = (word, duck) => S.sameLength(word, duck)
+  && S.sameFirstChar(word, duck)
+  && S.sameLastChar(word, duck);
 
 const searchDuckInArray = (word, ducks) => ducks.find(duck => isSimilar(duck, word));
 
@@ -19,8 +16,8 @@ const searchDuckInArray = (word, ducks) => ducks.find(duck => isSimilar(duck, wo
  * @returns {String} The decoded string
  */
 export function simpleDecoder(text, bagOfWords) {
-  if (!String.isString(text)) throw new InvalidArgumentError('text must be a string');
-  if (!Array.isArray(bagOfWords)) throw new InvalidArgumentError('words must be an array');
+  if (!S.isString(text)) throw new InvalidArgumentError('text must be a string');
+  if (!Array.isArray(bagOfWords)) throw new InvalidArgumentError('bagOfWords must be an array');
 
   const re = /[a-zA-Zàòèéùì]{1}([a-zA-Zàòèéùì]{2,})[a-zA-Zàòèéùì]{1}/g;
 
@@ -29,7 +26,8 @@ export function simpleDecoder(text, bagOfWords) {
 
     if (!regExpMatch) return decodedText;
     else return innerDecode(
-      decodedText.replaceAt(
+      S.replaceAt(
+        decodedText,
         regExpMatch.index,
         searchDuckInArray(
           regExpMatch[0],
