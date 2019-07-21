@@ -6,7 +6,7 @@ const isSimilar = (word, duck) => S.sameLength(word, duck)
   && S.sameFirstChar(word, duck)
   && S.sameLastChar(word, duck);
 
-const searchDuckInArray = (word, ducks) => ducks.find(duck => isSimilar(duck, word));
+const searchDuckInArray = (word, ducks) => ducks.find(duck => isSimilar(duck, word)) || word;
 
 /**
  * Decode a text using the provided original words.

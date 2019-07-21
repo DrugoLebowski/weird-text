@@ -1,21 +1,38 @@
 // Vendor
 import React, { useState } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 // Internal
 import DecoderText from './components/DecoderText';
 import EncoderText from './components/EncoderText';
-import ErrorMessage from './components/ErrorMessage';
 import { encoder } from './utils/encoder';
 import { simpleDecoder } from './utils/decoder';
 
 const Skin = styled.div`
   display: flex;
-  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Verdana', sans-serif;
+  background-color: ${props => props.theme.light};
+
+  input,
+  textarea {
+    width: 100%;
+    border-radius: 0.2rem;
+    border: 1px solid ${props => props.theme.light};
+  }
+
+  input {
+    line-height: 1.5rem;
+  }
+`;
+
+const Root = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%
   flex-direction: column;
   align-items: center;
-  font-family: sans-serif;
-  background-color: ${props => props.theme.light};
 `;
 
 const Container = styled.div`
@@ -27,25 +44,14 @@ const Container = styled.div`
   }
 `;
 
-const theme = {
-  main: '#82C0CC',
-  darkerMain: '#489FB5',
-  darkestMain: '#16697A',
-  light: '#EDE7E3',
-  accent: '#FFA62B⁣',
-};
-
 const App = () => {
   const [encodedText, setEncodedText, ] = useState('');
-  const [errorMessage, setErrorMessage, ] = useState(null);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Skin>
+    <Skin>
+      <Root>
         <Container>
           <h1>WeirdText</h1>
-          <ErrorMessage
-            errorMessage={errorMessage} />
           <EncoderText
             encodedText={encodedText}
             encoder={encoder}
@@ -54,11 +60,10 @@ const App = () => {
           <DecoderText
             decoder={simpleDecoder}
             encodedText={encodedText}
-            setErrorMessage={setErrorMessage}
           />
         </Container>
-      </Skin>
-    </ThemeProvider>
+      </Root>
+    </Skin>
   );
 };
 
