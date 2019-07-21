@@ -46,8 +46,12 @@ export function encoder(text) {
     else return innerSearchAndEncode({
       text: S.replaceAt(result.text, regExpMatch.index, shuffleWord(regExpMatch)),
       words: [
-        ...result.words,
-        regExpMatch[0]
+        ...new Set(
+          [
+            ...result.words,
+            regExpMatch[0]
+          ]
+        ),
       ],
     })
   })();
