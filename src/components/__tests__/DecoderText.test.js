@@ -15,9 +15,21 @@ describe('DecoderText', () => {
   });
 
   it('should mount', () => {
+    // Arrange
+    const encodedText = 'Hello worlds';
+
+    // Act
     act(() => {
-      ReactDOM.render(<DecoderText />, container);
+      ReactDOM.render(
+        <DecoderText
+          encodedText={encodedText}
+        />,
+        container
+      );
     });
+
+    expect(container.innerHTML).toBeDefined();
+    expect(container.innerHTML).not.toEqual('');
   });
 
   it('should decode test', () => {

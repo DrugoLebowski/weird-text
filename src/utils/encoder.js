@@ -3,20 +3,28 @@ import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-
 import * as S from '../infrastructure/extensions/string';
 
 /**
- * Try to shuffle the word found by RegExp, trying some times
- * if the shuffling is not successful. As a last resort, return
- * the original word.
+ * Try to shuffle the word found by RegExp.
  *
  * @param {RegExpExecArray} regExpMatch The result of RegExp.exec
- * @param {Number} retry The number of shuffling retry
  * @returns {String} The shuffled string
  */
-function shuffleWord(regExpMatch, retry = 0) {
-  const shuffledWord = S.replaceAt(regExpMatch[0], 1, S.shuffle(regExpMatch[1]));
+function shuffleWord(regExpMatch) {
+  const shuffledWord = S.replaceAt(
+    regExpMatch[0],
+    1,
+    S.shuffle(regExpMatch[1])
+  );
 
-  if (shuffledWord !== regExpMatch[0]) return shuffledWord; // success case
-  else if (retry === 3) return regExpMatch[0]; // fail case
-  else return shuffleWord(regExpMatch, retry++); // retry case
+  return shuffledWord !== regExpMatch[0]
+    ? shuffledWord // success case with shuffling
+    : S.replaceAt(
+        regExpMatch[0],
+        1,
+        regExpMatch[1]
+          .split('')
+          .reverse()
+          .join('')
+      ); // fail case with reversing
 }
 
 /**

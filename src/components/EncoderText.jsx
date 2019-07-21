@@ -1,6 +1,10 @@
 // Vendor
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+// Internal
+import Card from './Card';
 
 const EncoderText = ({
   encoder,
@@ -20,7 +24,7 @@ const EncoderText = ({
   }
 
   return (
-    <>
+    <Card>
       <h2>Encoder</h2>
       <h3>Input</h3>
       <h4>Text to encode</h4>
@@ -31,16 +35,24 @@ const EncoderText = ({
 
       <h3>Output</h3>
       <h4>Encoded text</h4>
-      <div>Here the text.</div>
-      <h4>{encodedText}</h4>
+      {encodedText && (
+        <h4 id="encoded-text">
+          {encodedText}
+        </h4>
+      )}
 
       <h4>List of the original words that got encoded</h4>
-      <div>Here the list.</div>
       <ul>
         {encodedWords && encodedWords.map((word, idx) => (<li key={idx}>{word}</li>))}
       </ul>
-    </>
+    </Card>
   )
 }
+
+EncoderText.propTypes = {
+  encoder: PropTypes.func,
+  encodedText: PropTypes.string,
+  setEncodedText: PropTypes.func,
+};
 
 export default EncoderText;
