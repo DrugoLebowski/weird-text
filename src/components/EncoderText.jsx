@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-// Internal
-import { encoder } from '../utils/encoder';
-
-const EncoderText = (props) => {
+const EncoderText = ({
+  encoder,
+  encodedText,
+  setEncodedText,
+}) => {
   const [originalText, setOriginalText, ] = useState('');
   const [encodedWords, setEncodedWords ] = useState([]);
 
@@ -14,7 +15,7 @@ const EncoderText = (props) => {
 
     const encoderResult = encoder(originalText);
 
-    props.setEncodedText(encoderResult.text);
+    setEncodedText(encoderResult.text);
     setEncodedWords(encoderResult.words);
   }
 
@@ -31,7 +32,7 @@ const EncoderText = (props) => {
       <h3>Output</h3>
       <h4>Encoded text</h4>
       <div>Here the text.</div>
-      <h4>{props.encodedText}</h4>
+      <h4>{encodedText}</h4>
 
       <h4>List of the original words that got encoded</h4>
       <div>Here the list.</div>

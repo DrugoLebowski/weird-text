@@ -7,19 +7,23 @@ const Style = styled.div`
   align-items: flex-start;
 `;
 
-const DecoderText = (props) => {
+const DecoderText = ({
+  encodedText,
+  decoder,
+  setErrorMessage,
+}) => {
   const [textToDecode, setTextToDecode, ] = useState('');
   const [words, setWords, ] = useState('');
   const [originalWords, setOriginalWords ] = useState([]);
   const [decodedText, setDecodedText, ] = useState('');
 
   const onOriginalWordsChange = (e) => {
-    if (textToDecode !== props.encodedText) {
-      props.setErrorMessage('There is a mismatch among encoded text e the text to decode!');
+    if (textToDecode !== encodedText) {
+      setErrorMessage('There is a mismatch among encoded text e the text to decode!');
     } else {
-      props.setErrorMessage(null);
+      setErrorMessage(null);
       setOriginalWords(e.target.value.split(' '));
-      setDecodedText(props.decoder(textToDecode, originalWords));
+      setDecodedText(decoder(textToDecode, originalWords));
     }
   }
 
