@@ -15,9 +15,13 @@ describe('simpleDecoder', () => {
   it('should decode encoded test', () => {
     // Arrange
     const text = 'Hello world, I\'m a ((((simple)))) test!! 42';
-    const encoderResult = encoder(text);
-    const encodedText = encoderResult.text;
-    const bagOfWords = encoderResult.words;
+    const encodedText = 'Hlelo wrold, I\'m a ((((smpile)))) tset!! 42';
+    const bagOfWords = [
+      'Hello',
+      'world',
+      'simple',
+      'test'
+    ];
 
     // Act
     const decodedText = simpleDecoder(encodedText, bagOfWords);
@@ -25,5 +29,22 @@ describe('simpleDecoder', () => {
     // Assert
     expect(decodedText).toEqual(text);
   });
-});
 
+  it('should decode encoded test with error', () => {
+    // Arrange
+    const text = 'Hello world, I\'m a ((((simple)))) test!! 42';
+    const encodedText = 'Hlelo wrold, I\'m a ((((smpile)))) tset!! 42';
+    const bagOfWords = [
+      'world',
+      'simple',
+      'test'
+    ];
+
+    // Act
+    const decodedText = simpleDecoder(encodedText, bagOfWords);
+
+    // Assert
+    expect(decodedText.substr(6)).toEqual(text.substr(6));
+    expect(decodedText.substr(0, 4)).toEqual(encodedText.substr(0, 4));
+  });
+});

@@ -9,8 +9,6 @@ import CardTitle from './CardTitle';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
 
-const ExtendedCard = styled(Card)``;
-
 const ExtendedCardTitle = styled(CardTitle)`
   & > h2 {
     margin: 0;
@@ -58,7 +56,7 @@ const EncoderText = ({
   };
 
   return (
-    <ExtendedCard>
+    <Card>
       <ExtendedCardTitle>
         <h2>Encoder</h2>
       </ExtendedCardTitle>
@@ -82,6 +80,11 @@ const EncoderText = ({
           )}
 
           <h4>List of the original words that got encoded</h4>
+          {encodedWords.length === 0 && (
+            <p className="no-encoded-words">
+              No encoded words!
+            </p>
+          )}
           {encodedWords.length > 0 && (
             <ul>
               {encodedWords.map((word, idx) => (
@@ -92,21 +95,20 @@ const EncoderText = ({
               )}
             </ul>
           )}
-          {encodedWords.length === 0 && (
-            <p className='no-encoded-words'>
-              No encoded words!
-            </p>
-          )}
         </ExtendedOutputContainer>
       )}
-    </ExtendedCard>
+    </Card>
   )
-}
+};
 
 EncoderText.propTypes = {
   encoder: PropTypes.func,
   encodedText: PropTypes.string,
   setEncodedText: PropTypes.func,
+};
+
+EncoderText.defaultProps = {
+  encodedText: '',
 };
 
 export default EncoderText;

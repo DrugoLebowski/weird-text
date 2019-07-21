@@ -10,15 +10,11 @@ import ErrorMessage from './ErrorMessage';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
 
-const ExtendedCard = styled(Card)``;
-
 const ExtendedCardTitle = styled(CardTitle)`
   & > h2 {
     margin: 0;
   }
 `;
-
-const ExtendedOutputContainer = styled(OutputContainer)``;
 
 const DecoderText = ({
   encodedText,
@@ -48,7 +44,7 @@ const DecoderText = ({
   return encodedText &&
     encodedText.length > 0 &&
     (
-      <ExtendedCard>
+      <Card>
         <ExtendedCardTitle>
           <h2>Decoder</h2>
         </ExtendedCardTitle>
@@ -83,14 +79,18 @@ const DecoderText = ({
             </div>
           </OutputContainer>
         )}
-      </ExtendedCard>
+      </Card>
     );
-}
+};
 
 DecoderText.propTypes = {
   encodedText: PropTypes.string,
   decoder: PropTypes.func,
   setErrorMessage: PropTypes.func,
+};
+
+DecoderText.defaultProps = {
+  encodedText: '',
 };
 
 export default DecoderText;

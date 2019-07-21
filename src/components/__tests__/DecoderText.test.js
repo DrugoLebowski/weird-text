@@ -34,7 +34,6 @@ describe('DecoderText', () => {
 
   it('should decode test', () => {
     // Arrange
-    let errorMessage = 'Not null';
     const originalText = 'Hello woooorld to you!';
     const encodedText = 'Hlelo wolorood to you!';
     const bagOfWords = [ 'Hello', 'woooorld', ];
@@ -44,7 +43,6 @@ describe('DecoderText', () => {
         <DecoderText
           encodedText={encodedText}
           decoder={(_) => originalText}
-          setErrorMessage={(value) => { errorMessage = value; }}
         />,
         container
       );
@@ -54,19 +52,19 @@ describe('DecoderText', () => {
     const encodedTextTextarea = container.querySelector('textarea');
     encodedTextTextarea.value = encodedText;
     Simulate.change(encodedTextTextarea);
+    Simulate.blur(encodedTextTextarea);
 
     const wordsInput = container.querySelector('input');
     wordsInput.value = bagOfWords.join(' ');
     Simulate.change(wordsInput);
 
     // Assert
-    expect(errorMessage).toBeNull();
+    expect(container.querySelector('.error-message')).toBeNull();
     expect(container.querySelector('#decoded-text').textContent).toEqual(originalText);
   });
 
-  it('should decode test', () => {
+  it('should not decode test', () => {
     // Arrange
-    let errorMessage = null;
     const originalText = 'Hello woooorld to you!';
     const anotherWeirdText = 'Example';
     const encodedText = 'Hlelo wolorood to you!';
@@ -77,7 +75,6 @@ describe('DecoderText', () => {
         <DecoderText
           encodedText={encodedText}
           decoder={(_) => originalText}
-          setErrorMessage={(value) => { errorMessage = value; }}
         />,
         container
       );
@@ -87,14 +84,10 @@ describe('DecoderText', () => {
     const encodedTextTextarea = container.querySelector('textarea');
     encodedTextTextarea.value = anotherWeirdText;
     Simulate.change(encodedTextTextarea);
-
-    const wordsInput = container.querySelector('input');
-    wordsInput.value = bagOfWords.join(' ');
-    Simulate.change(wordsInput);
+    Simulate.blur(encodedTextTextarea);
 
     // Assert
-    expect(errorMessage).not.toBeNull();
-    expect(errorMessage).toEqual('There is a mismatch among encoded text e the text to decode!');
+    expect(document.querySelector('.error-message')).not.toBeNull();
   });
 
   afterEach(() => {

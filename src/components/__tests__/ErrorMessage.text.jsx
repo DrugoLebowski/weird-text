@@ -43,7 +43,7 @@ describe('ErrorMessage', () => {
     });
 
     // Assert
-    expect(document.querySelector('div').textContent).toEqual('');
+    expect(document.querySelector('div')).toBeNull();
   });
 
   afterEach(() => {

@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const ErrorMessage = ({ message }) => (
   message && (
-    <Container>{message}</Container>
+    <Container className="error-message">{message}</Container>
   )
 );
 

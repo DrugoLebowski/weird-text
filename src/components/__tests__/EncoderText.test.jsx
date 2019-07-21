@@ -68,6 +68,53 @@ describe('EncoderTest', () => {
     expect(document.querySelector('ul').childNodes).toHaveLength(encodedWords.length);
   });
 
+  it('should not encode words also with text', () => {
+    // Arrange
+    const textToEncode = 'he lo';
+    let encodedText = '';
+
+    act(() => {
+      ReactDOM.render(
+        <EncoderText
+          encodedText={encodedText}
+          encoder={_ => ({
+            text: textToEncode,
+            words: [],
+          })}
+          setEncodedText={text => {
+              encodedText = text;
+          }}
+        />,
+        container
+      );
+    });
+
+    // Act
+    const textarea = document.querySelector('textarea');
+    textarea.value = textToEncode;
+    Simulate.change(textarea);
+
+    act(() => {
+      ReactDOM.render(
+        <EncoderText
+          encodedText={encodedText}
+          encoder={_ => ({
+            text: textToEncode,
+            words: [],
+          })}
+          setEncodedText={text => {
+              encodedText = text;
+          }}
+        />,
+        container
+      );
+    });
+
+    // Assert
+    expect(encodedText).toEqual(textToEncode);
+    expect(document.querySelector('.no-encoded-words')).not.toBeNull();
+  });
+
   afterEach(() => {
     document.body.removeChild(container);
     container = null;
