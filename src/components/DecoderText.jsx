@@ -29,6 +29,8 @@ const DecoderText = ({
   const onChangeCheckTextToDecode = (e) => {
     if (textToDecode !== encodedText) {
       setErrorMessage('There is a mismatch among encoded text and the text to decode!');
+      setDecodedText('');
+      setWords('');
     } else {
       setErrorMessage(null);
     }
