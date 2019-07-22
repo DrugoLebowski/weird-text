@@ -9,6 +9,8 @@ import CardTitle from './CardTitle';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
 import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
+import Row from './Row';
+import Column from './Column';
 
 const ExtendedOutputContainer = styled(OutputContainer)`
   & > ul {
@@ -55,48 +57,56 @@ const EncoderText = ({
   };
 
   return (
-    <Card>
-      <CardTitle>
-        <h2>Encoder</h2>
-      </CardTitle>
-      <InputContainer>
-        <h4>
-          Text to encode
-        </h4>
-        <textarea
-          rows="5"
-          value={originalText}
-          onChange={handleAddText}/>
-      </InputContainer>
-      {encodedText && (
-        <ExtendedOutputContainer>
-          <h3 className='title'>Output</h3>
-          <h4>Encoded text</h4>
+    <Row>
+      <Column
+        sm={6}
+        md={4}
+        offsetLeftSm={3}
+        offsetLeftMd={4}>
+        <Card>
+          <CardTitle>
+            <h2>Encoder</h2>
+          </CardTitle>
+          <InputContainer>
+            <h4>
+              Text to encode
+            </h4>
+            <textarea
+              rows="5"
+              value={originalText}
+              onChange={handleAddText}/>
+          </InputContainer>
           {encodedText && (
-            <p id="encoded-text">
-              {encodedText}
-            </p>
-          )}
-
-          <h4>List of the original words that got encoded</h4>
-          {encodedWords.length === 0 && (
-            <p className="no-encoded-words">
-              No encoded words!
-            </p>
-          )}
-          {encodedWords.length > 0 && (
-            <ul>
-              {encodedWords.map((word, idx) => (
-                  <li key={idx}>
-                    {word}
-                  </li>
-                )
+            <ExtendedOutputContainer>
+              <h3 className='title'>Output</h3>
+              <h4>Encoded text</h4>
+              {encodedText && (
+                <p id="encoded-text">
+                  {encodedText}
+                </p>
               )}
-            </ul>
+
+              <h4>List of the original words that got encoded</h4>
+              {encodedWords.length === 0 && (
+                <p className="no-encoded-words">
+                  No encoded words!
+                </p>
+              )}
+              {encodedWords.length > 0 && (
+                <ul>
+                  {encodedWords.map((word, idx) => (
+                      <li key={idx}>
+                        {word}
+                      </li>
+                    )
+                  )}
+                </ul>
+              )}
+            </ExtendedOutputContainer>
           )}
-        </ExtendedOutputContainer>
-      )}
-    </Card>
+        </Card>
+      </Column>
+    </Row>
   )
 };
 

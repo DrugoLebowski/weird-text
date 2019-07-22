@@ -8,6 +8,8 @@ import CardTitle from './CardTitle';
 import ErrorMessage from './ErrorMessage';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
+import Row from './Row';
+import Column from './Column';
 import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
 import { searchDuck } from '../utils/similarity';
 
@@ -48,42 +50,50 @@ const DecoderText = ({
   return encodedText &&
     encodedText.length > 0 &&
     (
-      <Card>
-        <CardTitle>
-          <h2>Decoder</h2>
-        </CardTitle>
-        {errorMessage && (
-          <ErrorMessage
-            message={errorMessage} />
-        )}
-        <InputContainer>
-          <h4>Text to decode</h4>
-          <textarea
-            rows="5"
-            value={textToDecode}
-            onChange={e => setTextToDecode(e.target.value)}
-            onBlur={onChangeCheckTextToDecode}/>
-          {!errorMessage && (
-            <>
-              <h4>List of the original words that got encoded, space separated.</h4>
-              <div>
-                <input type="text"
-                  value={words}
-                  onChange={onOriginalWordsChange}/>
-              </div>
-            </>
-          )}
-        </InputContainer>
-        {decodedText && decodedText.length > 0 && (
-          <OutputContainer>
-            <h3 className='title'>Output</h3>
-            <h4>Decoded text</h4>
-            <div id='decoded-text'>
-              {decodedText}
-            </div>
-          </OutputContainer>
-        )}
-      </Card>
+      <Row>
+        <Column
+          sm={6}
+          md={4}
+          offsetLeftSm={3}
+          offsetLeftMd={4}>
+          <Card>
+            <CardTitle>
+              <h2>Decoder</h2>
+            </CardTitle>
+            {errorMessage && (
+              <ErrorMessage
+                message={errorMessage} />
+            )}
+            <InputContainer>
+              <h4>Text to decode</h4>
+              <textarea
+                rows="5"
+                value={textToDecode}
+                onChange={e => setTextToDecode(e.target.value)}
+                onBlur={onChangeCheckTextToDecode}/>
+              {!errorMessage && (
+                <>
+                  <h4>List of the original words that got encoded, space separated.</h4>
+                  <div>
+                    <input type="text"
+                      value={words}
+                      onChange={onOriginalWordsChange}/>
+                  </div>
+                </>
+              )}
+            </InputContainer>
+            {decodedText && decodedText.length > 0 && (
+              <OutputContainer>
+                <h3 className='title'>Output</h3>
+                <h4>Decoded text</h4>
+                <div id='decoded-text'>
+                  {decodedText}
+                </div>
+              </OutputContainer>
+            )}
+          </Card>
+        </Column>
+      </Row>
     );
 };
 

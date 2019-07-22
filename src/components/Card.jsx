@@ -8,6 +8,6 @@ export default styled.div`
   padding: 2rem;
   border-radius: 0.2rem;
   background-color: white;
-  width: 400px;
+  width: 100%;
   margin-bottom: 2rem;
 `;

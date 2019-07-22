@@ -5,6 +5,7 @@ import styled from 'styled-components';
 // Internal
 import DecoderText from './components/DecoderText';
 import EncoderText from './components/EncoderText';
+import PageTitle from './components/PageTitle';
 import { encoder } from './utils/encoder';
 import { simpleDecoder } from './utils/decoder';
 
@@ -36,12 +37,9 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-
-  & > h1 {
-    align-self: flex-start;
-  }
 `;
 
 const App = () => {
@@ -51,7 +49,7 @@ const App = () => {
     <Skin>
       <Root>
         <Container>
-          <h1>WeirdText</h1>
+          <PageTitle />
           <EncoderText
             encodedText={encodedText}
             encoder={encoder}
