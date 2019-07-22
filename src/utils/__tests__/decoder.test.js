@@ -3,18 +3,37 @@ import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argume
 import { encoder } from '../encoder';
 import { simpleDecoder } from '../decoder';
 import { wordsWithLengthGeqFour } from '../selection-criteria';
+import { searchDuck } from '../similarity';
 
 describe('simpleDecoder', () => {
   it('should throw InvalidArgumentError for wrong text type', () => {
-    expect(() => simpleDecoder(null, [])).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder(null)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder(undefined)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder(1)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder(Symbol('42'))).toThrow(InvalidArgumentError);
   });
 
   it('should throw InvalidArgumentError for wrong bagOfWords type', () => {
     expect(() => simpleDecoder('', null)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', undefined)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', 1)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', Symbol('42'))).toThrow(InvalidArgumentError);
   });
 
   it('should throw InvalidArgumentError for wrong selectionCriteria type', () => {
     expect(() => simpleDecoder('', [], null)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], undefined)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], 1)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], '')).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], Symbol('42'))).toThrow(InvalidArgumentError);
+  });
+
+  it('should throw InvalidArgumentError for wrong searchDuck type', () => {
+    expect(() => simpleDecoder('', [], () => {}, null)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], () => {}, undefined)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], () => {}, 1)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], () => {}, '')).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], () => {}, Symbol('42'))).toThrow(InvalidArgumentError);
   });
 
   it('should decode encoded test', () => {
@@ -30,9 +49,10 @@ describe('simpleDecoder', () => {
 
     // Act
     const decodedText = simpleDecoder(
-      encodedText, 
+      encodedText,
       bagOfWords,
-      wordsWithLengthGeqFour
+      wordsWithLengthGeqFour,
+      searchDuck
     );
 
     // Assert
@@ -53,7 +73,8 @@ describe('simpleDecoder', () => {
     const decodedText = simpleDecoder(
       encodedText,
       bagOfWords,
-      wordsWithLengthGeqFour
+      wordsWithLengthGeqFour,
+      searchDuck
     );
 
     // Assert

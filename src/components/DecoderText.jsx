@@ -1,7 +1,6 @@
 // Vendor
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 // Internal
 import Card from './Card';
@@ -10,12 +9,7 @@ import ErrorMessage from './ErrorMessage';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
 import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
-
-const ExtendedCardTitle = styled(CardTitle)`
-  & > h2 {
-    margin: 0;
-  }
-`;
+import { searchDuck } from '../utils/similarity';
 
 const DecoderText = ({
   encodedText,
@@ -27,7 +21,7 @@ const DecoderText = ({
   const [decodedText, setDecodedText, ] = useState('');
 
   const onChangeCheckTextToDecode = (e) => {
-    if (textToDecode !== encodedText) {
+    if (textToDecode.trim() !== encodedText.trim()) {
       setErrorMessage('There is a mismatch among encoded text and the text to decode!');
       setDecodedText('');
       setWords('');
@@ -45,7 +39,8 @@ const DecoderText = ({
       decoder(
         textToDecode,
         bagOfWords,
-        wordsWithLengthGeqFour
+        wordsWithLengthGeqFour,
+        searchDuck
       )
     );
   };
@@ -54,9 +49,9 @@ const DecoderText = ({
     encodedText.length > 0 &&
     (
       <Card>
-        <ExtendedCardTitle>
+        <CardTitle>
           <h2>Decoder</h2>
-        </ExtendedCardTitle>
+        </CardTitle>
         {errorMessage && (
           <ErrorMessage
             message={errorMessage} />

@@ -10,12 +10,6 @@ import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
 import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
 
-const ExtendedCardTitle = styled(CardTitle)`
-  & > h2 {
-    margin: 0;
-  }
-`;
-
 const ExtendedOutputContainer = styled(OutputContainer)`
   & > ul {
     margin: 0;
@@ -62,9 +56,9 @@ const EncoderText = ({
 
   return (
     <Card>
-      <ExtendedCardTitle>
+      <CardTitle>
         <h2>Encoder</h2>
-      </ExtendedCardTitle>
+      </CardTitle>
       <InputContainer>
         <h4>
           Text to encode

@@ -1,3 +1,7 @@
+// Internal
+import * as S from '../infrastructure/extensions/string';
+import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
+
 /**
  * Represent a selection criteria for words
  * with length greater or equal four, contained
@@ -8,10 +12,13 @@
 export const wordsWithLengthGeqFour = (() => {
   const re = /[\w\dàòèéùì]{4,}/g;
 
-  return text => {
+  return (text) => {
+    if (!S.isString(text))
+      throw new InvalidArgumentError('text must be a string');
+
     const match = re.exec(text);
 
-    if (match === null)
+    if (!match)
       return null;
 
     return {

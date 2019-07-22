@@ -5,7 +5,11 @@ import InvalidArgumentError from '../exceptions/invalid-argument-error';
  *
  * @param {any} s - The variable to check
  */
-export const isString = s => typeof s === 'string' || s instanceof String;
+export const isString = s => s !== undefined &&
+  (
+    typeof s === 'string' ||
+    s instanceof String
+  );
 
 /**
  * Shuffle randomly the `str`.

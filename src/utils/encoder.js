@@ -52,7 +52,7 @@ export function encoder(text, selectionCriteria) {
 
   const selectionResult = selectionCriteria(text);
 
-  if (selectionResult === null)
+  if (!selectionResult)
     return {
       text,
       words: [],

@@ -1,7 +1,16 @@
 // Internal
 import { wordsWithLengthGeqFour, } from '../selection-criteria';
+import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
 
 describe('wordsWithLengthGeqFour', () => {
+  it('should throw InvalidArgumentError for wrong text\'s type', () => {
+    expect(() => wordsWithLengthGeqFour(null)).toThrow(InvalidArgumentError);
+    expect(() => wordsWithLengthGeqFour(undefined)).toThrow(InvalidArgumentError);
+    expect(() => wordsWithLengthGeqFour(1)).toThrow(InvalidArgumentError);
+    expect(() => wordsWithLengthGeqFour(false)).toThrow(InvalidArgumentError);
+    expect(() => wordsWithLengthGeqFour(Symbol(''))).toThrow(InvalidArgumentError);
+  })
+
   it('should select words', () => {
     // Arrange
     const text = 'Hello world, to everyone!';

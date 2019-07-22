@@ -9,4 +9,8 @@ export default styled.div`
   border-top-right-radius: 0.2rem;
   color: white;
   font-weight: bolder;
+
+  & > h2 {
+    margin: 0;
+  }
 `;
