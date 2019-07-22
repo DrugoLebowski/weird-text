@@ -1,10 +1,15 @@
 // Internal
 import { encoder } from '../encoder';
+import { wordsWithLengthGeqFour, } from '../selection-criteria';
 import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
 
 describe('encoder', () => {
-  it('should throw InvalidArgumentError for wrong text', () => {
+  it('should throw InvalidArgumentError for wrong text type', () => {
     expect(() => encoder(null)).toThrow(InvalidArgumentError);
+  });
+
+  it('should throw InvalidArgumentError for wrong selectionCriteria type', () => {
+    expect(() => encoder('', null)).toThrow(InvalidArgumentError);
   });
 
   it('should encode text', () => {
@@ -12,7 +17,7 @@ describe('encoder', () => {
     const text = 'Hello world, I\'m a ((((simple)))) test!! 42';
 
     // Act
-    const encoderResult = encoder(text);
+    const encoderResult = encoder(text, wordsWithLengthGeqFour);
 
     // Assert
     expect(encoderResult).toBeDefined();

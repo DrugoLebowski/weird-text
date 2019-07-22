@@ -17,7 +17,11 @@ export const isString = s => typeof s === 'string' || s instanceof String;
 export function shuffle(str) {
   if (!isString(str)) throw new InvalidArgumentError('str must be a string');
 
-  return str.split('').sort(() => Math.random() - 0.5).join('');
+  const shuffledStr = str.split('').sort(() => Math.random() - 0.5).join('');
+
+  return shuffledStr === str
+    ? str.split('').reverse().join('')
+    : shuffledStr;
 }
 
 /**

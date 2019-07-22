@@ -8,6 +8,7 @@ import Card from './Card';
 import CardTitle from './CardTitle';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
+import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
 
 const ExtendedCardTitle = styled(CardTitle)`
   & > h2 {
@@ -49,7 +50,10 @@ const EncoderText = ({
 
   const handleAddText = (e) => {
     const currentText = e.target.value;
-    const encoderResult = encoder(currentText);
+    const encoderResult = encoder(
+      currentText,
+      wordsWithLengthGeqFour
+    );
 
     setOriginalText(currentText);
     setEncodedText(encoderResult.text);

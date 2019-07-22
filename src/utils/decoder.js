@@ -15,25 +15,28 @@ const searchDuckInArray = (word, ducks) => ducks.find(duck => isSimilar(duck, wo
  * @param {Array} words The array of the original words, to use to decode the text
  * @returns {String} The decoded string
  */
-export function simpleDecoder(text, bagOfWords) {
-  if (!S.isString(text)) throw new InvalidArgumentError('text must be a string');
-  if (!Array.isArray(bagOfWords)) throw new InvalidArgumentError('bagOfWords must be an array');
+export function simpleDecoder(text, bagOfWords, selectionCriteria) {
+  if (!S.isString(text))
+    throw new InvalidArgumentError('text must be a string');
+  if (!Array.isArray(bagOfWords))
+    throw new InvalidArgumentError('bagOfWords must be an array');
+  if (!(selectionCriteria instanceof Function))
+    throw new InvalidArgumentError('bagOfWords must be an array');
 
-  const re = /[a-zA-Zàòèéùì]{1}([a-zA-Zàòèéùì]{2,})[a-zA-Zàòèéùì]{1}/g;
+  const selectionResult = selectionCriteria(text);
 
-  return (function innerDecode(decodedText) {
-    const regExpMatch = re.exec(text);
+  if (!selectionResult) return text;
 
-    if (!regExpMatch) return decodedText;
-    else return innerDecode(
-      S.replaceAt(
-        decodedText,
-        regExpMatch.index,
-        searchDuckInArray(
-          regExpMatch[0],
-          bagOfWords
-        )
+  return simpleDecoder(
+    S.replaceAt(
+      text,
+      selectionResult.index,
+      searchDuckInArray(
+        selectionResult.selection,
+        bagOfWords
       )
-    )
-  })(text);
+    ),
+    bagOfWords,
+    selectionCriteria
+  );
 }

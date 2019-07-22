@@ -1,7 +1,8 @@
 // Internal
+import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
 import { encoder } from '../encoder';
 import { simpleDecoder } from '../decoder';
-import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
+import { wordsWithLengthGeqFour } from '../selection-criteria';
 
 describe('simpleDecoder', () => {
   it('should throw InvalidArgumentError for wrong text type', () => {
@@ -10,6 +11,10 @@ describe('simpleDecoder', () => {
 
   it('should throw InvalidArgumentError for wrong bagOfWords type', () => {
     expect(() => simpleDecoder('', null)).toThrow(InvalidArgumentError);
+  });
+
+  it('should throw InvalidArgumentError for wrong selectionCriteria type', () => {
+    expect(() => simpleDecoder('', [], null)).toThrow(InvalidArgumentError);
   });
 
   it('should decode encoded test', () => {
@@ -24,7 +29,11 @@ describe('simpleDecoder', () => {
     ];
 
     // Act
-    const decodedText = simpleDecoder(encodedText, bagOfWords);
+    const decodedText = simpleDecoder(
+      encodedText, 
+      bagOfWords,
+      wordsWithLengthGeqFour
+    );
 
     // Assert
     expect(decodedText).toEqual(text);
@@ -41,7 +50,11 @@ describe('simpleDecoder', () => {
     ];
 
     // Act
-    const decodedText = simpleDecoder(encodedText, bagOfWords);
+    const decodedText = simpleDecoder(
+      encodedText,
+      bagOfWords,
+      wordsWithLengthGeqFour
+    );
 
     // Assert
     expect(decodedText.substr(6)).toEqual(text.substr(6));

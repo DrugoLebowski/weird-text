@@ -9,6 +9,7 @@ import CardTitle from './CardTitle';
 import ErrorMessage from './ErrorMessage';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
+import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
 
 const ExtendedCardTitle = styled(CardTitle)`
   & > h2 {
@@ -38,7 +39,13 @@ const DecoderText = ({
     const bagOfWords = words.split(' ');
 
     setWords(words);
-    setDecodedText(decoder(textToDecode, bagOfWords));
+    setDecodedText(
+      decoder(
+        textToDecode,
+        bagOfWords,
+        wordsWithLengthGeqFour
+      )
+    );
   };
 
   return encodedText &&

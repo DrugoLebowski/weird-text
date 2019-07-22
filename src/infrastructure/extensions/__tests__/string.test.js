@@ -28,6 +28,14 @@ describe('shuffle', () => {
     // Act & assert
     expect(S.shuffle(str)).not.toBe(str);
   });
+
+  it('should shuffle palindrome stirng with reverse', () => {
+    // Arrange
+    const str = 'tattarrattat';
+
+    // Act & assert
+    expect(S.shuffle(str)).not.toBe(str);
+  });
 })
 
 describe('replaceAt', () => {
