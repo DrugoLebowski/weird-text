@@ -5,6 +5,10 @@ import InvalidArgumentError from '../../exceptions/invalid-argument-error';
 describe('isString', () => {
   it('should return false with no string', () => {
     expect(S.isString(1)).toBe(false);
+    expect(S.isString(null)).toBe(false);
+    expect(S.isString(undefined)).toBe(false);
+    expect(S.isString(() => {})).toBe(false);
+    expect(S.isString(Symbol(''))).toBe(false);
   });
 
   it('should return true with string', () => {
@@ -14,11 +18,11 @@ describe('isString', () => {
 
 describe('shuffle', () => {
   it('should raise InvalidArgumentError', () => {
-    // Arrange
-    const notAString = 1;
-
-    // Act & assert
-    expect(() => S.shuffle(notAString)).toThrow(InvalidArgumentError);
+    expect(() => S.shuffle(null)).toThrow(InvalidArgumentError);
+    expect(() => S.shuffle(undefined)).toThrow(InvalidArgumentError);
+    expect(() => S.shuffle(1)).toThrow(InvalidArgumentError);
+    expect(() => S.shuffle(() => ({}))).toThrow(InvalidArgumentError);
+    expect(() => S.shuffle(Symbol('42'))).toThrow(InvalidArgumentError);
   });
 
   it('should shuffle string', () => {
@@ -26,29 +30,41 @@ describe('shuffle', () => {
     const str = 'Hello, world';
 
     // Act & assert
-    expect(S.shuffle(str)).not.toBe(str);
+    expect(S.shuffle(str)).not.toEqual(str);
   });
 
-  it('should shuffle palindrome stirng with reverse', () => {
+  it('should shuffle palindrome string with reverse', () => {
     // Arrange
-    const str = 'tattarrattat';
+    const str = 'aaaaa';
 
     // Act & assert
-    expect(S.shuffle(str)).not.toBe(str);
+    expect(S.shuffle(str)).toEqual(str);
   });
 })
 
 describe('replaceAt', () => {
-  it('should raise InvalidArgumentError for wrong index type', () => {
-    expect(() => S.replaceAt('', null, '')).toThrow(InvalidArgumentError);
-  });
-
   it('should raise InvalidArgumentError for wrong str type', () => {
     expect(() => S.replaceAt(null, 0, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt(undefined, 0, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt(1, 0, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt(() => {}, 0, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt(Symbol(''), 0, '')).toThrow(InvalidArgumentError);
+  });
+
+  it('should raise InvalidArgumentError for wrong index type', () => {
+    expect(() => S.replaceAt('', null, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', undefined, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', '', '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', () => {}, '')).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', Symbol(''), '')).toThrow(InvalidArgumentError);
   });
 
   it('should raise InvalidArgumentError for wrong content type', () => {
     expect(() => S.replaceAt('', 0, null)).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', 0, undefined)).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', 0, 1)).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', 0, () => {})).toThrow(InvalidArgumentError);
+    expect(() => S.replaceAt('', 0, Symbol(''))).toThrow(InvalidArgumentError);
   });
 
   it('should replace substring', () => {
@@ -60,7 +76,6 @@ describe('replaceAt', () => {
     const newString = S.replaceAt(startingString, 0, substring);
 
     // Assert
-
     expect(newString).toEqual(substring);
   });
 });
@@ -68,10 +83,18 @@ describe('replaceAt', () => {
 describe('sameLength',  () => {
   it('should raise InvalidArgumentError for wrong str type', () => {
     expect(() => S.sameLength(null, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength(undefined, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength(1, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength(() => {}, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength(Symbol(''), '')).toThrow(InvalidArgumentError);
   });
 
   it('should raise InvalidArgumentError for wrong otherStr type', () => {
     expect(() => S.sameLength('', null)).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength('', undefined)).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength('', 1)).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength('', () => {})).toThrow(InvalidArgumentError);
+    expect(() => S.sameLength('', Symbol(''))).toThrow(InvalidArgumentError);
   });
 
   it('should return true for same length', () => {
@@ -94,10 +117,18 @@ describe('sameLength',  () => {
 describe('sameFirstChar', () => {
   it('should raise InvalidArgumentError for wrong str type', () => {
     expect(() => S.sameFirstChar(null, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar(undefined, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar(1, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar(() => {}, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar(Symbol(''), '')).toThrow(InvalidArgumentError);
   });
 
   it('should raise InvalidArgumentError for wrong otherString type', () => {
     expect(() => S.sameFirstChar('', null)).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar('', undefined)).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar('', 1)).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar('', () => {})).toThrow(InvalidArgumentError);
+    expect(() => S.sameFirstChar('', Symbol(''))).toThrow(InvalidArgumentError);
   });
 
   it('should return true for same first char', () => {
@@ -120,10 +151,18 @@ describe('sameFirstChar', () => {
 describe('sameLastChar', () => {
   it('should raise InvalidArgumentError for wrong str type', () => {
     expect(() => S.sameLastChar(null, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar(undefined, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar(1, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar(() => {}, '')).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar(Symbol(''), '')).toThrow(InvalidArgumentError);
   });
 
   it('should raise InvalidArgumentError for wrong otherStr type', () => {
     expect(() => S.sameLastChar('', null)).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar('', undefined)).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar('', 1)).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar('', () => {})).toThrow(InvalidArgumentError);
+    expect(() => S.sameLastChar('', Symbol(''))).toThrow(InvalidArgumentError);
   });
 
   it('should return true for same first char', () => {
