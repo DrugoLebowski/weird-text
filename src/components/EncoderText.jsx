@@ -45,7 +45,7 @@ const EncoderText = ({
   const [encodedWords, setEncodedWords ] = useState([]);
 
   const handleAddText = (e) => {
-    const currentText = e.target.value;
+    const currentText = e.target.value.replace(/\n/g, ' ');
     const encoderResult = encoder(
       currentText,
       wordsWithLengthGeqFour
