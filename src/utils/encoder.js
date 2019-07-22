@@ -23,9 +23,9 @@ const shuffleInnerSubstringOfTheWord = word => S.replaceAt(
  * Generates a new array, adding the `element` to the `array` iff
  * is unique.
  *
- * @param {Array} array The array to populate
+ * @param {Array<any>} array The array to populate
  * @param {any} element The element to add to the array
- * @returns {Array} The new array
+ * @returns {Array<any>} The new array
  */
 const unshiftToArrayOfUnique = (array, element) => [
   ...new Set([
@@ -40,7 +40,8 @@ const unshiftToArrayOfUnique = (array, element) => [
  * that satisfies the `selectionCriteria`.
  *
  * @param {String} text The text to encode.
- * @param {Function} selectionCriteria The criteria of selection of the words to encode.
+ * @param {function(String): { selection: String, index: Number}} selectionCriteria
+ *  The criteria of selection of the words to encode.
  * @returns {String} The encoded text with the bag of the original encoded words.
  */
 export function encoder(text, selectionCriteria) {

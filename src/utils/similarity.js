@@ -28,9 +28,9 @@ export function isSimilar(word, duck) {
  * is similar to the `word` passed as argument.
  *
  * @param {String} word The word for which a similar word is searched
- * @param {Array} ducks The bag of similar words
- * @param {Function} [similarityCriterion=isSimilar] The criterion that should be used to compute the similarity
- * @returns The similar word or the original word if the search fails.
+ * @param {Array<String>} ducks The bag of similar words
+ * @param {function(string, string): Boolean} [similarityCriterion=isSimilar] The criterion that should be used to compute the similarity
+ * @returns {String} The similar word or the original word if the search fails.
  * @throws {InvalidArgumentError}
  */
 export function searchDuck(word, ducks, similarityCriterion = isSimilar) {

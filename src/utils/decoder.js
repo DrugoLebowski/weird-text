@@ -6,9 +6,10 @@ import * as S from '../infrastructure/extensions/string';
  * Decode a text using the provided original words.
  *
  * @param {String} text The text to decode
- * @param {Array} words The array of the original words, to use to decode the text
- * @param {Function} selectionCriteria The function used to search the portion of text to decode
- * @param {Function} searchDuck The function used to search the similar word
+ * @param {Array<String>} bagOfWords The array of the original words, to use to decode the text
+ * @param {function(string): { selection: String, index: Number}} selectionCriteria
+ *  The function used to search the portion of text to decode.
+ * @param {function(string, string): boolean} searchDuck The function used to search the similar word
  * @returns {String} The decoded text
  */
 export function simpleDecoder(text, bagOfWords, selectionCriteria, searchDuck) {

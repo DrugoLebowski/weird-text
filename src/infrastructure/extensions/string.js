@@ -33,7 +33,7 @@ export function shuffle(str) {
  *
  * @param {String} str The string to which the `content` is substituted.
  * @param {Number} index The index from which the substitution starts.
- * @param {String} content The content with which the substitution is made.
+ * @param {String} content The content with which the substitution is made.
  * @returns {String} The new string with the replaced substring.
  * @throws {InvalidArgumentError}
  */
@@ -49,11 +49,11 @@ export function replaceAt(str, index, content) {
  * Check if the current string has the same length of the other string.
  *
  * @param {String} str The main string
- * @param {String} otherString The other string with which check the length.
+ * @param {String} otherStr The other string with which check the length.
  * @returns {Boolean}
  * @throws {InvalidArgumentError}
  */
-export const sameLength = (str, otherStr) => {
+export function sameLength(str, otherStr) {
   if (!isString(str)) throw new InvalidArgumentError('str must be a string');
   if (!isString(otherStr)) throw new InvalidArgumentError('otherStr must be a string');
 
@@ -69,7 +69,7 @@ export const sameLength = (str, otherStr) => {
  * @returns {Boolean}
  * @throws {InvalidArgumentError}
  */
-export const sameFirstChar = (str, otherString) => {
+export function sameFirstChar(str, otherString) {
   if (!isString(str)) throw new InvalidArgumentError('str must be a string');
   if (!isString(otherString)) throw new InvalidArgumentError('otherString must be a string');
 
@@ -81,11 +81,11 @@ export const sameFirstChar = (str, otherString) => {
  * character with respect to the other string.
  *
  * @param {String} str The main string
- * @param {String} otherString The other string with which check the last char.
+ * @param {String} otherStr The other string with which check the last char.
  * @returns {Boolean}
  * @throws {InvalidArgumentError}
  */
-export const sameLastChar = (str, otherStr) => {
+export function sameLastChar(str, otherStr) {
   if (!isString(str)) throw new InvalidArgumentError('str must be a string');
   if (!isString(otherStr)) throw new InvalidArgumentError('otherStr must be a string');
 

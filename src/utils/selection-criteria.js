@@ -7,7 +7,9 @@ import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-
  * with length greater or equal four, contained
  * in a generic text.
  *
- * @returns {Function} The function of selection
+ * @param {String} text The text to scan
+ * @returns {function(string): { selection: String, index: Number}} 
+ *  The selected text and the index where the text starts
  */
 export const wordsWithLengthGeqFour = (() => {
   const re = /[\w\dàòèéùì]{4,}/g;
