@@ -3,10 +3,10 @@ import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-
 import * as S from '../infrastructure/extensions/string';
 
 /**
- * Try to shuffle the word found by RegExp.
+ * Tries to shuffle the word.
  *
- * @param {String} word The word to which the inner substring is suffled
- * @returns {String} The shuffled string
+ * @param {String} word The word to shuffle
+ * @returns {String} The shuffled word
  */
 const shuffleInnerSubstringOfTheWord = word => S.replaceAt(
   word,
@@ -19,17 +19,23 @@ const shuffleInnerSubstringOfTheWord = word => S.replaceAt(
   )
 );
 
-const unshiftToUniqueArray = (array, element) => [
-  ...new Set(
-    [
-      element,
-      ...array
-    ]
-  ),
+/**
+ * Generates a new array, adding the `element` to the `array` iff
+ * is unique.
+ *
+ * @param {Array} array The array to populate
+ * @param {any} element The element to add to the array
+ * @returns {Array} The new array
+ */
+const unshiftToArrayOfUnique = (array, element) => [
+  ...new Set([
+    element,
+    ...array
+  ]),
 ];
 
 /**
- * Encode a text, shuffling the internal substring (where 'internal substring'
+ * Encodes a text, shuffling the internal substring (where 'internal substring'
  * is meant to be the string without the first and the last character) of each word
  * that satisfies the `selectionCriteria`.
  *
@@ -65,7 +71,7 @@ export function encoder(text, selectionCriteria) {
         selectionResult.selection
       )
     ),
-    words: unshiftToUniqueArray(
+    words: unshiftToArrayOfUnique(
       encoderResult.words,
       selectionResult.selection,
     ),

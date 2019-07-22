@@ -20,10 +20,26 @@ describe('encoder', () => {
     const encoderResult = encoder(text, wordsWithLengthGeqFour);
 
     // Assert
-    expect(encoderResult).toBeDefined();
-    expect(encoderResult.text).toBeDefined();
+    expect(encoderResult).not.toBeFalsy();
+    expect(encoderResult.text).not.toBeFalsy();
     expect(encoderResult.text).toHaveLength(text.length);
+    expect(encoderResult.words).not.toBeFalsy();
     expect(encoderResult.words).toHaveLength(4);
     expect(encoderResult.words[0]).toEqual('Hello');
+  });
+
+  it('should not encode text', () => {
+    // Arrange
+    const text = 'No te xt to en co de!';
+
+    // Act
+    const encoderResult = encoder(text, wordsWithLengthGeqFour);
+
+    // Assert
+    expect(encoderResult).not.toBeFalsy();
+    expect(encoderResult.text).not.toBeFalsy();
+    expect(encoderResult.text).toHaveLength(text.length);
+    expect(encoderResult.words).not.toBeFalsy();
+    expect(encoderResult.words).toHaveLength(0);
   });
 });
