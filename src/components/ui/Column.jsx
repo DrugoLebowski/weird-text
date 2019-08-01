@@ -1,5 +1,6 @@
-// Internal
+// Vendor
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 function colWidth(size) {
   return size * 100 / 12;
@@ -23,7 +24,7 @@ function calcRightOffset(offset) {
   return `margin-right: ${colWidth(offset)}%`;
 }
 
-export default styled.div`
+const Column = styled.div`
   display: flex;
   padding: 0 15px;
   ${({ xs }) => xs ? calcWidth(xs) : 'width: 100%;' };
@@ -45,6 +46,23 @@ export default styled.div`
   @media only screen and (min-width: 1200px) {
     ${({ lg }) => lg && calcWidth(lg) };
     ${({ offsetRightLg }) => offsetRightLg && calcRightOffset(offsetRightLg)};
-    ${({ offsetLeftLf }) => offsetLeftLf && calcLeftOffset(offsetLeftLf)};
+    ${({ offsetLeftLg }) => offsetLeftLg && calcLeftOffset(offsetLeftLg)};
   }
 `;
+
+Column.propTypes = {
+  xs: PropTypes.number,
+  sm: PropTypes.number,
+  md: PropTypes.number,
+  lg: PropTypes.number,
+  offsetRightXs: PropTypes.number,
+  offsetRightSm: PropTypes.number,
+  offsetRightMd: PropTypes.number,
+  offsetRightLg: PropTypes.number,
+  offsetLeftXs: PropTypes.number,
+  offsetLeftSm: PropTypes.number,
+  offsetLeftMd: PropTypes.number,
+  offsetLeftLg: PropTypes.number,
+};
+
+export default Column;

@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 // Internal
-import Card from './Card';
-import CardTitle from './CardTitle';
-import ErrorMessage from './ErrorMessage';
-import InputContainer from './InputContainer';
-import OutputContainer from './OutputContainer';
-import Row from './Row';
-import Column from './Column';
-import { wordsWithLengthGeqFour } from '../utils/selection-criterias/words-with-length-geq-four';
-import { searchDuck } from '../utils/similarity';
+import Card from './ui/Card';
+import CardTitle from './ui/CardTitle';
+import ErrorMessage from './ui/ErrorMessage';
+import InputContainer from './ui/InputContainer';
+import InputContainerTitle from './ui/InputContainerTitle';
+import OutputContainer from './ui/OutputContainer';
+import OutputContainerTitle from './ui/OutputContainerTitle';
+import OutputContainerSubTitle from './ui/OutputContainerSubTitle';
+import OutputContainerParagraph from './ui/OutputContainerParagraph';
+import Row from './ui/Row';
+import Column from './ui/Column';
+import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
+import searchDuck from '../utils/similarity';
 
 const DecoderText = ({
   encodedText,
@@ -58,14 +62,16 @@ const DecoderText = ({
           offsetLeftMd={4}>
           <Card>
             <CardTitle>
-              <h2>Decoder</h2>
+              Decoder
             </CardTitle>
             {errorMessage && (
               <ErrorMessage
                 message={errorMessage} />
             )}
             <InputContainer>
-              <h4>Text to decode</h4>
+              <InputContainerTitle>
+                Text to decode
+              </InputContainerTitle>
               <textarea
                 rows="5"
                 value={textToDecode}
@@ -73,22 +79,27 @@ const DecoderText = ({
                 onBlur={onChangeCheckTextToDecode}/>
               {!errorMessage && (
                 <>
-                  <h4>List of the original words that got encoded, space separated.</h4>
-                  <div>
-                    <input type="text"
-                      value={words}
-                      onChange={onOriginalWordsChange}/>
-                  </div>
+                  <InputContainerTitle>
+                    List of the original words that got encoded, space separated.
+                  </InputContainerTitle>
+                  <input type="text"
+                    value={words}
+                    onChange={onOriginalWordsChange}/>
                 </>
               )}
             </InputContainer>
             {decodedText && decodedText.length > 0 && (
               <OutputContainer>
-                <h3 className='title'>Output</h3>
-                <h4>Decoded text</h4>
-                <div id='decoded-text'>
+                <OutputContainerTitle>
+                  Output
+                </OutputContainerTitle>
+                <OutputContainerSubTitle>
+                  Decoded text
+                </OutputContainerSubTitle>
+                <OutputContainerParagraph
+                  id='decoded-text'>
                   {decodedText}
-                </div>
+                </OutputContainerParagraph>
               </OutputContainer>
             )}
           </Card>

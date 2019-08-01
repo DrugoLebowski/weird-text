@@ -5,7 +5,7 @@ import React from 'react';
 import Row from './Row';
 import Column from './Column';
 
-const PageTitle = () => (
+export default () => (
   <Row>
     <Column
       sm={6}
@@ -16,5 +16,3 @@ const PageTitle = () => (
     </Column>
   </Row>
 );
-
-export default PageTitle;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // Internal
 import DecoderText from './components/DecoderText';
 import EncoderText from './components/EncoderText';
-import PageTitle from './components/PageTitle';
+import PageTitle from './components/ui/PageTitle';
 import { encoder, simpleDecoder } from './utils';
 
 const Skin = styled.div`

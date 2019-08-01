@@ -112,7 +112,7 @@ describe('EncoderTest', () => {
 
     // Assert
     expect(encodedText).toEqual(textToEncode);
-    expect(document.querySelector('.no-encoded-words')).not.toBeNull();
+    expect(document.querySelector('#no-encoded-words')).not.toBeNull();
   });
 
   afterEach(() => {

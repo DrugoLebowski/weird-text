@@ -23,6 +23,7 @@ describe('encoder', () => {
     expect(encoderResult).not.toBeFalsy();
     expect(encoderResult.text).not.toBeFalsy();
     expect(encoderResult.text).toHaveLength(text.length);
+    expect(encoderResult.text).not.toEqual(text);
     expect(encoderResult.words).not.toBeFalsy();
     expect(encoderResult.words).toHaveLength(4);
     expect(encoderResult.words[0]).toEqual('Hello');
@@ -39,6 +40,7 @@ describe('encoder', () => {
     expect(encoderResult).not.toBeFalsy();
     expect(encoderResult.text).not.toBeFalsy();
     expect(encoderResult.text).toHaveLength(text.length);
+    expect(encoderResult.text).not.toEqual(text);
     expect(encoderResult.words).not.toBeFalsy();
     expect(encoderResult.words).toHaveLength(4);
     expect(encoderResult.words[0]).toEqual('Hel373lo');
@@ -55,6 +57,7 @@ describe('encoder', () => {
     expect(encoderResult).not.toBeFalsy();
     expect(encoderResult.text).not.toBeFalsy();
     expect(encoderResult.text).toHaveLength(text.length);
+    expect(encoderResult.text).toEqual(text);
     expect(encoderResult.words).not.toBeFalsy();
     expect(encoderResult.words).toHaveLength(0);
   });

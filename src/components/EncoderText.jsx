@@ -1,40 +1,20 @@
 // Vendor
-import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { useState, } from 'react';
 
 // Internal
-import Card from './Card';
-import CardTitle from './CardTitle';
-import InputContainer from './InputContainer';
-import OutputContainer from './OutputContainer';
+import Card from './ui/Card';
+import CardTitle from './ui/CardTitle';
+import EncodedText from './ui/EncodedText';
+import InputContainer from './ui/InputContainer';
+import InputContainerTitle from './ui/InputContainerTitle';
+import OutputContainer from './ui/OutputContainer';
+import OutputContainerTitle from './ui/OutputContainerTitle';
+import OutputContainerSubTitle from './ui/OutputContainerSubTitle';
+import EncodedWordsList from './ui/EncodedWordsList';
 import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
-import Row from './Row';
-import Column from './Column';
-
-const ExtendedOutputContainer = styled(OutputContainer)`
-  & > ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-
-    & > li {
-      list-style-type: none;
-      background-color: ${props => props.theme.accent };
-      padding: 0.5rem 1rem;
-      border-radius: 0.2rem;
-      margin-right: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
-    }
-  }
-
-  & .no-encoded-words {
-    color: ${props => props.theme.accent };
-    margin: 0;
-  }
-`;
+import Row from './ui/Row';
+import Column from './ui/Column';
 
 const EncoderText = ({
   encoder,
@@ -65,44 +45,34 @@ const EncoderText = ({
         offsetLeftMd={4}>
         <Card>
           <CardTitle>
-            <h2>Encoder</h2>
+            Encoder
           </CardTitle>
           <InputContainer>
-            <h4>
+            <InputContainerTitle>
               Text to encode
-            </h4>
+            </InputContainerTitle>
             <textarea
               rows="5"
               value={originalText}
               onChange={handleAddText}/>
           </InputContainer>
           {encodedText && (
-            <ExtendedOutputContainer>
-              <h3 className='title'>Output</h3>
-              <h4>Encoded text</h4>
-              {encodedText && (
-                <p id="encoded-text">
-                  {encodedText}
-                </p>
-              )}
-
-              <h4>List of the original words that got encoded</h4>
-              {encodedWords.length === 0 && (
-                <p className="no-encoded-words">
-                  No encoded words!
-                </p>
-              )}
-              {encodedWords.length > 0 && (
-                <ul>
-                  {encodedWords.map((word, idx) => (
-                      <li key={idx}>
-                        {word}
-                      </li>
-                    )
-                  )}
-                </ul>
-              )}
-            </ExtendedOutputContainer>
+            <OutputContainer>
+              <OutputContainerTitle>
+                Output
+              </OutputContainerTitle>
+              <OutputContainerSubTitle>
+                Encoded text
+              </OutputContainerSubTitle>
+              <EncodedText
+                id='encoded-text'
+                text={encodedText}
+              />
+              <OutputContainerSubTitle>
+                List of the original words that got encoded
+              </OutputContainerSubTitle>
+              <EncodedWordsList words={encodedWords} />
+            </OutputContainer>
           )}
         </Card>
       </Column>
