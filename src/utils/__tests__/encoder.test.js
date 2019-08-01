@@ -1,5 +1,5 @@
 // Internal
-import { encoder, } from '../encoder';
+import { encoder, } from '..';
 import { InvalidArgumentError, } from '../../utils/exceptions';
 import { wordsWithLengthGeqFour, } from '../selection-criterias';
 

@@ -1,6 +1,6 @@
 // Internal
 import { InvalidArgumentError } from '../../utils/exceptions';
-import { simpleDecoder } from '../decoder';
+import { simpleDecoder } from '..';
 import { wordsWithLengthGeqFour } from '../selection-criterias';
 import searchDuck from '../similarity';
 
