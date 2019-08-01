@@ -1,6 +1,6 @@
 // Vendor
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 // Internal
 import Card from './Card';
@@ -10,7 +10,7 @@ import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
 import Row from './Row';
 import Column from './Column';
-import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
+import { wordsWithLengthGeqFour } from '../utils/selection-criterias/words-with-length-geq-four';
 import { searchDuck } from '../utils/similarity';
 
 const DecoderText = ({

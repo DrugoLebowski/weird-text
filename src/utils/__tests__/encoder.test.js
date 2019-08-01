@@ -1,7 +1,7 @@
 // Internal
-import { encoder } from '../encoder';
-import { wordsWithLengthGeqFour, } from '../selection-criteria';
-import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
+import { encoder, } from '../encoder';
+import { InvalidArgumentError, } from '../../utils/exceptions';
+import { wordsWithLengthGeqFour, } from '../selection-criterias';
 
 describe('encoder', () => {
   it('should throw InvalidArgumentError for wrong text type', () => {

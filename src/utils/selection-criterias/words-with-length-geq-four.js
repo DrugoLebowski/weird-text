@@ -1,6 +1,6 @@
 // Internal
-import * as S from '../infrastructure/extensions/string';
-import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
+import { isString, } from '../string';
+import { InvalidArgumentError, } from '../exceptions';
 
 /**
  * Represent a selection criteria for words
@@ -11,11 +11,11 @@ import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-
  * @returns {function(string): { selection: String, index: Number}} 
  *  The selected text and the index where the text starts
  */
-export const wordsWithLengthGeqFour = (() => {
+export default (function() {
   const re = /[\w\dàòèéùì]{4,}/g;
 
   return (text) => {
-    if (!S.isString(text))
+    if (!isString(text))
       throw new InvalidArgumentError('text must be a string');
 
     const match = re.exec(text);

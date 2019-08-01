@@ -1,38 +1,7 @@
 // Internal
-import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
-import * as S from '../infrastructure/extensions/string';
-
-/**
- * Tries to shuffle the word.
- *
- * @param {String} word The word to shuffle
- * @returns {String} The shuffled word
- */
-const shuffleInnerSubstringOfTheWord = word => S.replaceAt(
-  word,
-  1,
-  S.shuffle(
-    word.substr(
-      1,
-      word.length - 2
-    )
-  )
-);
-
-/**
- * Generates a new array, adding the `element` to the `array` iff
- * is unique.
- *
- * @param {Array<any>} array The array to populate
- * @param {any} element The element to add to the array
- * @returns {Array<any>} The new array
- */
-const unshiftToArrayOfUnique = (array, element) => [
-  ...new Set([
-    element,
-    ...array
-  ]),
-];
+import { isString, replaceAt, shuffle, } from '../utils/string';
+import { unshiftToArrayOfUnique } from '../utils/array';
+import { InvalidArgumentError } from '../utils/exceptions';
 
 /**
  * Encodes a text, shuffling the internal substring (where 'internal substring'
@@ -42,10 +11,10 @@ const unshiftToArrayOfUnique = (array, element) => [
  * @param {String} text The text to encode.
  * @param {function(String): { selection: String, index: Number}} selectionCriteria
  *  The criteria of selection of the words to encode.
- * @returns {String} The encoded text with the bag of the original encoded words.
+ * @returns {String} The encoded text with the bag of the original encoded word
  */
 export function encoder(text, selectionCriteria) {
-  if (!S.isString(text))
+  if (!isString(text))
     throw new InvalidArgumentError('text must be a string');
 
   if (!(selectionCriteria instanceof Function))
@@ -65,12 +34,19 @@ export function encoder(text, selectionCriteria) {
   );
 
   return {
-    text: S.replaceAt(
+    text: replaceAt(
       encoderResult.text,
       selectionResult.index,
-      shuffleInnerSubstringOfTheWord(
-        selectionResult.selection
-      )
+      replaceAt(
+        selectionResult.selection,
+        1,
+        shuffle(
+          selectionResult.selection.substr(
+            1,
+            selectionResult.selection.length - 2
+          )
+        )
+      ).replace(/\n/g, ' ')
     ),
     words: unshiftToArrayOfUnique(
       encoderResult.words,

@@ -3,12 +3,12 @@
 <head>
     <title>Code coverage report for src/utils/decoder.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(..\..\sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,32 +16,32 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">src/utils</a> decoder.js
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/utils</a> decoder.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>0/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>0/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>0/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/11</span>
+        <span class='fraction'>0/9</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -81,10 +81,9 @@
 36
 37
 38
-39
-40
-41
-42</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+39</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,21 +96,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,34 +120,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Internal
-import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
-import * as S from '../infrastructure/extensions/string';
+<span class="cstat-no" title="statement not covered" >import { InvalidArgumentError, } from '../utils/exceptions';</span>
+<span class="cstat-no" title="statement not covered" >import { isString, replaceAt, } from '../utils/string';</span>
 &nbsp;
 /**
- * Decode a text using the provided original words.
+ * Decode a text using the provided original word
  *
  * @param {String} text The text to decode
- * @param {Array} words The array of the original words, to use to decode the text
- * @param {Function} selectionCriteria The function used to search the portion of text to decode
- * @param {Function} searchDuck The function used to search the similar word
+ * @param {Array&lt;String&gt;} bagOfWords The array of the original words, to use to decode the text
+ * @param {function(string): { selection: String, index: Number}} selectionCriteria
+ *  The function used to search the portion of text to decode.
+ * @param {function(string, string): boolean} searchDuck The function used to search the similar word
  * @returns {String} The decoded text
  */
-export function simpleDecoder(text, bagOfWords, selectionCriteria, searchDuck) {
-  if (!S.isString(text))
-    throw new InvalidArgumentError('text must be a string');
-  if (!Array.isArray(bagOfWords))
-    throw new InvalidArgumentError('bagOfWords must be an array');
-  if (!(selectionCriteria instanceof Function))
-    throw new InvalidArgumentError('selectionCriteria must be an Function');
-  if (!(searchDuck instanceof Function))
-    throw new InvalidArgumentError('searchDuck must be an Function');
+export function <span class="fstat-no" title="function not covered" >simpleDecoder(text, bagOfWords, selectionCriteria, searchDuck) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!isString(text)) <span class="cstat-no" title="statement not covered" >t</span>hrow new InvalidArgumentError('text must be a string');</span>
+<span class="cstat-no" title="statement not covered" >  if (!Array.isArray(bagOfWords)) <span class="cstat-no" title="statement not covered" >t</span>hrow new InvalidArgumentError('bagOfWords must be an array');</span>
+<span class="cstat-no" title="statement not covered" >  if (!(selectionCriteria instanceof Function)) <span class="cstat-no" title="statement not covered" >t</span>hrow new InvalidArgumentError('selectionCriteria must be an Function');</span>
+<span class="cstat-no" title="statement not covered" >  if (!(searchDuck instanceof Function)) <span class="cstat-no" title="statement not covered" >t</span>hrow new InvalidArgumentError('searchDuck must be an Function');</span>
 &nbsp;
-  const selectionResult = selectionCriteria(text);
+  const selectionResult = <span class="cstat-no" title="statement not covered" >selectionCriteria(text);</span>
 &nbsp;
-  if (!selectionResult) return text;
+<span class="cstat-no" title="statement not covered" >  if (!selectionResult) <span class="cstat-no" title="statement not covered" >r</span>eturn text;</span>
 &nbsp;
-  return simpleDecoder(
-    S.replaceAt(
+<span class="cstat-no" title="statement not covered" >  return simpleDecoder(</span>
+    replaceAt(
       text,
       selectionResult.index,
       searchDuck(
@@ -172,10 +163,10 @@ export function simpleDecoder(text, bagOfWords, selectionCriteria, searchDuck) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 22 2019 11:54:31 GMT+0200 (GMT+02:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Aug 01 2019 16:01:53 GMT+0200 (Central European Summer Time)
 </div>
 </div>
-<script src="../../prettify.js"></script>
+<script src="..\..\prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -183,6 +174,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../../sorter.js"></script>
+<script src="..\..\sorter.js"></script>
 </body>
 </html>

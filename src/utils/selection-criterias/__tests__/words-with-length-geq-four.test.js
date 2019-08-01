@@ -1,6 +1,6 @@
 // Internal
-import { wordsWithLengthGeqFour, } from '../selection-criteria';
-import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
+import { wordsWithLengthGeqFour, } from '..';
+import { InvalidArgumentError, } from '../../exceptions';
 
 describe('wordsWithLengthGeqFour', () => {
   it('should throw InvalidArgumentError for wrong text\'s type', () => {

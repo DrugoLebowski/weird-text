@@ -6,8 +6,7 @@ import styled from 'styled-components';
 import DecoderText from './components/DecoderText';
 import EncoderText from './components/EncoderText';
 import PageTitle from './components/PageTitle';
-import { encoder } from './utils/encoder';
-import { simpleDecoder } from './utils/decoder';
+import { encoder, simpleDecoder } from './utils';
 
 const Skin = styled.div`
   display: flex;

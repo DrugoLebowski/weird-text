@@ -1,7 +1,7 @@
 // Vendor
+import { ThemeProvider } from 'styled-components';
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ThemeProvider } from 'styled-components';
 
 // Internal
 import App from './App';

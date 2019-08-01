@@ -8,7 +8,7 @@ import Card from './Card';
 import CardTitle from './CardTitle';
 import InputContainer from './InputContainer';
 import OutputContainer from './OutputContainer';
-import { wordsWithLengthGeqFour } from '../utils/selection-criteria';
+import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
 import Row from './Row';
 import Column from './Column';
 
@@ -52,7 +52,7 @@ const EncoderText = ({
     );
 
     setOriginalText(currentText);
-    setEncodedText(encoderResult.text.replace(/\n/g, ' '));
+    setEncodedText(encoderResult.text);
     setEncodedWords(encoderResult.words);
   };
 

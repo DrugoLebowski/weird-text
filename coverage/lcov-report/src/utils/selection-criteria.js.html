@@ -3,12 +3,12 @@
 <head>
     <title>Code coverage report for src/utils/selection-criteria.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(..\..\sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,32 +16,32 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">src/utils</a> selection-criteria.js
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/utils</a> selection-criteria.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>0/11</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>4/4</span>
+        <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>0/11</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -72,7 +72,11 @@
 27
 28
 29
-30</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+30
+31
+32</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -83,48 +87,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Internal
-import * as S from '../infrastructure/extensions/string';
-import InvalidArgumentError from '../infrastructure/exceptions/invalid-argument-error';
+<span class="cstat-no" title="statement not covered" >import { isString, } from '../utils/string';</span>
+<span class="cstat-no" title="statement not covered" >import { InvalidArgumentError, } from '../utils/exceptions';</span>
 &nbsp;
 /**
  * Represent a selection criteria for words
  * with length greater or equal four, contained
  * in a generic text.
  *
- * @returns {Function} The function of selection
+ * @param {String} text The text to scan
+ * @returns {function(string): { selection: String, index: Number}} 
+ *  The selected text and the index where the text starts
  */
-export const wordsWithLengthGeqFour = (() =&gt; {
-  const re = /[\w\dàòèéùì]{4,}/g;
+export const wordsWithLengthGeqFour = <span class="cstat-no" title="statement not covered" >(<span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+  const re = <span class="cstat-no" title="statement not covered" >/[\w\dàòèéùì]{4,}/g;</span>
 &nbsp;
-  return (text) =&gt; {
-    if (!S.isString(text))
-      throw new InvalidArgumentError('text must be a string');
+<span class="cstat-no" title="statement not covered" >  return (<span class="fstat-no" title="function not covered" >text) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (!isString(text))</span>
+<span class="cstat-no" title="statement not covered" >      throw new InvalidArgumentError('text must be a string');</span>
 &nbsp;
-    const match = re.exec(text);
+    const match = <span class="cstat-no" title="statement not covered" >re.exec(text);</span>
 &nbsp;
-    if (!match)
-      return null;
+<span class="cstat-no" title="statement not covered" >    if (!match)</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
 &nbsp;
-    return {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       selection: match[0],
       index: match.index,
     };
@@ -136,10 +142,10 @@ export const wordsWithLengthGeqFour = (() =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 22 2019 11:54:31 GMT+0200 (GMT+02:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Aug 01 2019 16:01:53 GMT+0200 (Central European Summer Time)
 </div>
 </div>
-<script src="../../prettify.js"></script>
+<script src="..\..\prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -147,6 +153,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../../sorter.js"></script>
+<script src="..\..\sorter.js"></script>
 </body>
 </html>

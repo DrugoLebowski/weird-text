@@ -1,9 +1,8 @@
 // Internal
-import InvalidArgumentError from '../../infrastructure/exceptions/invalid-argument-error';
-import { encoder } from '../encoder';
+import { InvalidArgumentError } from '../../utils/exceptions';
 import { simpleDecoder } from '../decoder';
-import { wordsWithLengthGeqFour } from '../selection-criteria';
-import { searchDuck } from '../similarity';
+import { wordsWithLengthGeqFour } from '../selection-criterias';
+import searchDuck from '../similarity';
 
 describe('simpleDecoder', () => {
   it('should throw InvalidArgumentError for wrong text type', () => {
@@ -36,7 +35,7 @@ describe('simpleDecoder', () => {
     expect(() => simpleDecoder('', [], () => {}, Symbol('42'))).toThrow(InvalidArgumentError);
   });
 
-  it('should decode encoded test', () => {
+  it('should decode encoded text', () => {
     // Arrange
     const text = 'Hello world, I\'m a ((((simple)))) test!! 42';
     const encodedText = 'Hlelo wrold, I\'m a ((((smpile)))) tset!! 42';
@@ -59,7 +58,7 @@ describe('simpleDecoder', () => {
     expect(decodedText).toEqual(text);
   });
 
-  it('should decode encoded test with error', () => {
+  it('should decode encoded text with error', () => {
     // Arrange
     const text = 'Hello world, I\'m a ((((simple)))) test!! 42';
     const encodedText = 'Hlelo wrold, I\'m a ((((smpile)))) tset!! 42';
