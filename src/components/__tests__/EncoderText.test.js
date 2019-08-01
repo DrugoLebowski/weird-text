@@ -1,10 +1,11 @@
 // Vendor
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { act, Simulate } from 'react-dom/test-utils';
+import { act, findRenderedComponentWithType, Simulate, } from 'react-dom/test-utils';
 
 // Internal
 import EncoderText from '../EncoderText';
+import EncodedText from '../ui/EncodedText';
 
 describe('EncoderTest', () => {
   let container = null;
@@ -42,7 +43,7 @@ describe('EncoderTest', () => {
     });
 
     // Act
-    const originalTextTextarea = document.querySelector('textarea');
+    const originalTextTextarea = document.querySelector('#original-text');
     originalTextTextarea.value = originalText;
     Simulate.change(originalTextTextarea);
 
@@ -65,7 +66,7 @@ describe('EncoderTest', () => {
     // Arrange
     expect(emittedEncodedText).not.toBeNull();
     expect(document.querySelector('#encoded-text').textContent).toEqual(encodedText);
-    expect(document.querySelector('ul').childNodes).toHaveLength(encodedWords.length);
+    expect(document.querySelector('#encoded-words').childNodes).toHaveLength(encodedWords.length);
   });
 
   it('should not encode words also with text', () => {

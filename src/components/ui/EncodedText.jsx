@@ -8,10 +8,9 @@ const StyledP = styled.p`
 `;
 
 const EncodedText = ({
-  id,
   text,
 }) => text && (
-  <StyledP id={id}>
+  <StyledP id='encoded-text'>
     {text}
   </StyledP>
 );

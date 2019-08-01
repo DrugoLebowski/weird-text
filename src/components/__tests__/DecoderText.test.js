@@ -49,12 +49,12 @@ describe('DecoderText', () => {
     });
 
     // Act
-    const encodedTextTextarea = container.querySelector('textarea');
+    const encodedTextTextarea = container.querySelector('#encoded-textarea');
     encodedTextTextarea.value = encodedText;
     Simulate.change(encodedTextTextarea);
     Simulate.blur(encodedTextTextarea);
 
-    const wordsInput = container.querySelector('input');
+    const wordsInput = container.querySelector('#input-words');
     wordsInput.value = bagOfWords.join(' ');
     Simulate.change(wordsInput);
 
@@ -81,7 +81,7 @@ describe('DecoderText', () => {
     });
 
     // Act
-    const encodedTextTextarea = container.querySelector('textarea');
+    const encodedTextTextarea = container.querySelector('#encoded-textarea');
     encodedTextTextarea.value = anotherWeirdText;
     Simulate.change(encodedTextTextarea);
     Simulate.blur(encodedTextTextarea);

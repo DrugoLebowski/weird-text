@@ -73,6 +73,7 @@ const DecoderText = ({
                 Text to decode
               </InputContainerTitle>
               <textarea
+                id='encoded-textarea'
                 rows="5"
                 value={textToDecode}
                 onChange={e => setTextToDecode(e.target.value)}
@@ -82,7 +83,9 @@ const DecoderText = ({
                   <InputContainerTitle>
                     List of the original words that got encoded, space separated.
                   </InputContainerTitle>
-                  <input type="text"
+                  <input 
+                    id='input-words'
+                    type="text"
                     value={words}
                     onChange={onOriginalWordsChange}/>
                 </>

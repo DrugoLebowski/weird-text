@@ -52,7 +52,8 @@ const EncoderText = ({
               Text to encode
             </InputContainerTitle>
             <textarea
-              rows="5"
+              id='original-text'
+              rows='5'
               value={originalText}
               onChange={handleAddText}/>
           </InputContainer>
@@ -64,10 +65,7 @@ const EncoderText = ({
               <OutputContainerSubTitle>
                 Encoded text
               </OutputContainerSubTitle>
-              <EncodedText
-                id='encoded-text'
-                text={encodedText}
-              />
+              <EncodedText text={encodedText} />
               <OutputContainerSubTitle>
                 List of the original words that got encoded
               </OutputContainerSubTitle>

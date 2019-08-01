@@ -27,12 +27,13 @@ const WordsListItem = styled.li`
 
 const EncodedWordsList = ({ words }) => (
   words.length === 0 ? (
-    <NoEncodedWords 
+    <NoEncodedWords
       id='no-encoded-words'>
       No encoded words!
     </NoEncodedWords>
   ) : (
-    <WordsList>
+    <WordsList
+      id='encoded-words'>
       {words.map((word, idx) => (
         <WordsListItem key={idx}>
           {word}
