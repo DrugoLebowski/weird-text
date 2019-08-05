@@ -1,20 +1,20 @@
 // Internal
-import { wordsWithLengthGeqFour, } from '..';
+import { permutableWords, } from '..';
 import { InvalidArgumentError, } from '../../exceptions';
 
-describe('wordsWithLengthGeqFour', () => {
+describe('permutableWords', () => {
   it('should throw InvalidArgumentError for wrong text\'s type', () => {
-    expect(() => wordsWithLengthGeqFour(null)).toThrow(InvalidArgumentError);
-    expect(() => wordsWithLengthGeqFour(undefined)).toThrow(InvalidArgumentError);
-    expect(() => wordsWithLengthGeqFour(1)).toThrow(InvalidArgumentError);
-    expect(() => wordsWithLengthGeqFour(false)).toThrow(InvalidArgumentError);
-    expect(() => wordsWithLengthGeqFour(Symbol(''))).toThrow(InvalidArgumentError);
+    expect(() => permutableWords(null).next()).toThrow(InvalidArgumentError);
+    expect(() => permutableWords(undefined).next()).toThrow(InvalidArgumentError);
+    expect(() => permutableWords(1).next()).toThrow(InvalidArgumentError);
+    expect(() => permutableWords(false).next()).toThrow(InvalidArgumentError);
+    expect(() => permutableWords(Symbol()).next()).toThrow(InvalidArgumentError);
   })
 
   it('should select words', () => {
     // Arrange
     const text = 'Hello world, to everyone!';
-    const numOfWordsWithLengthGeqFour = text
+    const numberOfPermutableWords = text
       .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
       .split(' ')
       .reduce(
@@ -24,30 +24,22 @@ describe('wordsWithLengthGeqFour', () => {
         0
       );
 
-    let counter = 0;
-
     // Act
-    let match;
-    while ((match = wordsWithLengthGeqFour(text)) !== null)
-      counter++;
+    const numberOfWords = [...permutableWords(text)].length;
 
     // Assert
-    expect(counter).toEqual(numOfWordsWithLengthGeqFour);
+    expect(numberOfWords).toEqual(numberOfPermutableWords);
   });
 
   it('should not select words', () => {
     // Arrange
     const text = 'He llo wor ld, to no one!';
-    const numOfWordsWithLengthGeqFour = 0;
-
-    let counter = 0;
+    const numberOfPermutableWords = 0;
 
     // Act
-    let match;
-    while ((match = wordsWithLengthGeqFour(text)) !== null)
-      counter++;
+    const numberOfWords = [...permutableWords(text)].length;
 
     // Assert
-    expect(counter).toEqual(numOfWordsWithLengthGeqFour);
+    expect(numberOfWords).toEqual(numberOfPermutableWords);
   });
 });

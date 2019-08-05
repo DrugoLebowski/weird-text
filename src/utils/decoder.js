@@ -7,32 +7,38 @@ import { isString, replaceAt, } from '../utils/string';
  *
  * @param {String} text The text to decode
  * @param {Array<String>} bagOfWords The array of the original words, to use to decode the text
- * @param {function(string): { selection: String, index: Number}} selectionCriteria
+ * @param {IterableIterator<{ selection: string, index: number}>} selectionCriteria
  *  The function used to search the portion of text to decode.
  * @param {function(string, string): boolean} searchDuck The function used to search the similar word
  * @returns {String} The decoded text
  */
 export function simpleDecoder(text, bagOfWords, selectionCriteria, searchDuck) {
-  if (!isString(text)) throw new InvalidArgumentError('text must be a string');
-  if (!Array.isArray(bagOfWords)) throw new InvalidArgumentError('bagOfWords must be an array');
-  if (!(selectionCriteria instanceof Function)) throw new InvalidArgumentError('selectionCriteria must be an Function');
-  if (!(searchDuck instanceof Function)) throw new InvalidArgumentError('searchDuck must be an Function');
+  if (!isString(text)) {
+    throw new InvalidArgumentError('text must be a string');
+  }
 
-  const selectionResult = selectionCriteria(text);
+  if (!Array.isArray(bagOfWords)) {
+    throw new InvalidArgumentError('bagOfWords must be an array');
+  }
 
-  if (!selectionResult) return text;
+  if (!selectionCriteria || selectionCriteria.constructor.name !== 'GeneratorFunction') {
+    throw new InvalidArgumentError('selectionCriteria must be an generator');
+  }
 
-  return simpleDecoder(
-    replaceAt(
-      text,
-      selectionResult.index,
-      searchDuck(
-        selectionResult.selection,
+  if (!(searchDuck instanceof Function)) {
+    throw new InvalidArgumentError('searchDuck must be an Function');
+  }
+
+  const selectionResult = [...selectionCriteria(text)];
+
+  return !selectionResult
+    ? text
+    : selectionResult.reduce((encodedText, selectedText) => {
+      const foundWord = searchDuck(
+        selectedText.selection,
         bagOfWords
-      )
-    ),
-    bagOfWords,
-    selectionCriteria,
-    searchDuck
-  );
+      );
+
+      return replaceAt(encodedText, selectedText.index, foundWord);
+    }, text);
 }

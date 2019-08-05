@@ -1,7 +1,7 @@
 // Internal
 import { encoder, } from '..';
 import { InvalidArgumentError, } from '../../utils/exceptions';
-import { wordsWithLengthGeqFour, } from '../selection-criterias';
+import { permutableWords, } from '../selection-criterias';
 
 describe('encoder', () => {
   it('should throw InvalidArgumentError for wrong text type', () => {
@@ -17,7 +17,7 @@ describe('encoder', () => {
     const text = 'Hello world, I\'m a ((((simple)))) test!! 42';
 
     // Act
-    const encoderResult = encoder(text, wordsWithLengthGeqFour);
+    const encoderResult = encoder(text, permutableWords);
 
     // Assert
     expect(encoderResult).not.toBeFalsy();
@@ -34,7 +34,7 @@ describe('encoder', () => {
     const text = 'Hel373lo wor145ld, I\'m a ((((sim56234ple)))) t563est!! 42';
 
     // Act
-    const encoderResult = encoder(text, wordsWithLengthGeqFour);
+    const encoderResult = encoder(text, permutableWords);
 
     // Assert
     expect(encoderResult).not.toBeFalsy();
@@ -51,7 +51,7 @@ describe('encoder', () => {
     const text = 'No te xt to en co de!';
 
     // Act
-    const encoderResult = encoder(text, wordsWithLengthGeqFour);
+    const encoderResult = encoder(text, permutableWords);
 
     // Assert
     expect(encoderResult).not.toBeFalsy();

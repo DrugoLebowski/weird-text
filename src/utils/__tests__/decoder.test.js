@@ -1,7 +1,7 @@
 // Internal
 import { InvalidArgumentError } from '../../utils/exceptions';
 import { simpleDecoder } from '..';
-import { wordsWithLengthGeqFour } from '../selection-criterias';
+import { permutableWords } from '../selection-criterias';
 import searchDuck from '../similarity';
 
 describe('simpleDecoder', () => {
@@ -28,11 +28,11 @@ describe('simpleDecoder', () => {
   });
 
   it('should throw InvalidArgumentError for wrong searchDuck type', () => {
-    expect(() => simpleDecoder('', [], () => {}, null)).toThrow(InvalidArgumentError);
-    expect(() => simpleDecoder('', [], () => {}, undefined)).toThrow(InvalidArgumentError);
-    expect(() => simpleDecoder('', [], () => {}, 1)).toThrow(InvalidArgumentError);
-    expect(() => simpleDecoder('', [], () => {}, '')).toThrow(InvalidArgumentError);
-    expect(() => simpleDecoder('', [], () => {}, Symbol('42'))).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], function* () {}, null)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], function* () {}, undefined)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], function* () {}, 1)).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], function* () {}, '')).toThrow(InvalidArgumentError);
+    expect(() => simpleDecoder('', [], function* () {}, Symbol('42'))).toThrow(InvalidArgumentError);
   });
 
   it('should decode encoded text', () => {
@@ -50,7 +50,7 @@ describe('simpleDecoder', () => {
     const decodedText = simpleDecoder(
       encodedText,
       bagOfWords,
-      wordsWithLengthGeqFour,
+      permutableWords,
       searchDuck
     );
 
@@ -72,7 +72,7 @@ describe('simpleDecoder', () => {
     const decodedText = simpleDecoder(
       encodedText,
       bagOfWords,
-      wordsWithLengthGeqFour,
+      permutableWords,
       searchDuck
     );
 

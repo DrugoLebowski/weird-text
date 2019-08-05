@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { act, Simulate } from 'react-dom/test-utils';
 
 // Internal
+import AppContext from '../contexts/AppContext';
 import DecoderText from '../DecoderText';
 
 describe('DecoderText', () => {
@@ -19,15 +20,18 @@ describe('DecoderText', () => {
     const encodedText = 'Hello worlds';
 
     // Act
+
+
     act(() => {
       ReactDOM.render(
-        <DecoderText
-          encodedText={encodedText}
-        />,
+        <AppContext.Provider initialState={{ encodedText, }}>
+          <DecoderText decoder={() => {}} />
+        </AppContext.Provider>,
         container
       );
     });
 
+    // Assert
     expect(container.innerHTML).toBeDefined();
     expect(container.innerHTML).not.toEqual('');
   });
@@ -40,10 +44,9 @@ describe('DecoderText', () => {
 
     act(() => {
       ReactDOM.render(
-        <DecoderText
-          encodedText={encodedText}
-          decoder={(_) => originalText}
-        />,
+        <AppContext.Provider initialState={{ encodedText, }}>
+          <DecoderText decoder={(_) => originalText}/>
+        </AppContext.Provider>,
         container
       );
     });
@@ -72,10 +75,9 @@ describe('DecoderText', () => {
 
     act(() => {
       ReactDOM.render(
-        <DecoderText
-          encodedText={encodedText}
-          decoder={(_) => originalText}
-        />,
+        <AppContext.Provider initialState={{ encodedText }}>
+          <DecoderText decoder={(_) => originalText} />
+        </AppContext.Provider>,
         container
       );
     });

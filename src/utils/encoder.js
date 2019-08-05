@@ -9,48 +9,42 @@ import { InvalidArgumentError } from '../utils/exceptions';
  * that satisfies the `selectionCriteria`.
  *
  * @param {String} text The text to encode.
- * @param {function(String): { selection: String, index: Number}} selectionCriteria
+ * @param {IterableIterator<{ selection: string, index: number }>} selectionCriteria
  *  The criteria of selection of the words to encode.
  * @returns {String} The encoded text with the bag of the original encoded word
  */
 export function encoder(text, selectionCriteria) {
-  if (!isString(text))
+  if (!isString(text)) {
     throw new InvalidArgumentError('text must be a string');
+  }
 
-  if (!(selectionCriteria instanceof Function))
-    throw new InvalidArgumentError('selectionCriteria must be a Function');
+  if (!selectionCriteria || selectionCriteria.constructor.name !== 'GeneratorFunction') {
+    throw new InvalidArgumentError('selectionCriteria must be a generator');
+  }
 
-  const selectionResult = selectionCriteria(text);
-
-  if (!selectionResult)
-    return {
-      text,
-      words: [],
-    };
-
-  const encoderResult = encoder(
-    text,
-    selectionCriteria
-  );
+  const selectionResult = [...selectionCriteria(text)];
 
   return {
-    text: replaceAt(
-      encoderResult.text,
-      selectionResult.index,
-      replaceAt(
-        selectionResult.selection,
-        1,
-        shuffle(
-          selectionResult.selection.substr(
-            1,
-            selectionResult.selection.length - 2
-          )
+    text: selectionResult.reduce((originalText, selectedText) => {
+      const shuffledTextSubstring = shuffle(
+        selectedText.selection.substr(
+          1,
+          selectedText.selection.length - 2
         )
-      ).replace(/\n/g, ' ')
-    ),
-    words: unshiftToArrayOfUnique(
-      encoderResult.words,
-      selectionResult.selection,
-    ),
+      );
+
+      const shuffledSelectedText = replaceAt(
+        selectedText.selection,
+        1,
+        shuffledTextSubstring
+      ).replace(/\n/g, ' ');
+
+      return replaceAt(
+        originalText,
+        selectedText.index,
+        shuffledSelectedText
+      );
+    }, text),
+    words: selectionResult.map(selectedText => selectedText.selection),
   };
 };

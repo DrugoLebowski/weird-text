@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { act, findRenderedComponentWithType, Simulate, } from 'react-dom/test-utils';
 
 // Internal
+import AppContext from '../contexts/AppContext';
 import EncoderText from '../EncoderText';
 import EncodedText from '../ui/EncodedText';
 
@@ -11,14 +12,12 @@ describe('EncoderTest', () => {
   let container = null;
 
   beforeEach(() => {
-    container = document.createElement('container');
+    container = document.createElement('div');
     document.body.appendChild(container);
   });
 
   it('should encode text', () => {
     // Arrange
-    let emittedEncodedText = null;
-
     const originalText = 'Hello woooorld to you!';
     const encodedText = 'Hlelo wolorood to you!';
     const encodedWords = [
@@ -28,16 +27,14 @@ describe('EncoderTest', () => {
 
     act(() => {
       ReactDOM.render(
-        <EncoderText
-          encodedText={emittedEncodedText}
-          encoder={_ => ({
-            text: encodedText,
-            words: encodedWords,
-          })}
-          setEncodedText={value => {
-            emittedEncodedText = value;
-          }}
-        />,
+        <AppContext.Provider>
+          <EncoderText
+            encoder={_ => ({
+              text: encodedText,
+              words: encodedWords,
+            })}
+          />
+        </AppContext.Provider>,
         container
       );
     });
@@ -49,22 +46,19 @@ describe('EncoderTest', () => {
 
     act(() => {
       ReactDOM.render(
-        <EncoderText
-          encodedText={emittedEncodedText}
-          encoder={_ => ({
-            text: encodedText,
-            words: encodedWords,
-          })}
-          setEncodedText={value => {
-            emittedEncodedText = value;
-          }}
-        />,
+        <AppContext.Provider>
+          <EncoderText
+            encoder={_ => ({
+              text: encodedText,
+              words: encodedWords,
+            })}
+          />
+        </AppContext.Provider>,
         container
       );
     });
 
     // Arrange
-    expect(emittedEncodedText).not.toBeNull();
     expect(document.querySelector('#encoded-text').textContent).toEqual(encodedText);
     expect(document.querySelector('#encoded-words').childNodes).toHaveLength(encodedWords.length);
   });
@@ -72,47 +66,41 @@ describe('EncoderTest', () => {
   it('should not encode words also with text', () => {
     // Arrange
     const textToEncode = 'he lo';
-    let encodedText = '';
 
     act(() => {
       ReactDOM.render(
-        <EncoderText
-          encodedText={encodedText}
-          encoder={_ => ({
-            text: textToEncode,
-            words: [],
-          })}
-          setEncodedText={text => {
-              encodedText = text;
-          }}
-        />,
+        <AppContext.Provider>
+          <EncoderText
+            encoder={_ => ({
+              text: textToEncode,
+              words: [],
+            })}
+          />
+        </AppContext.Provider>,
         container
       );
     });
 
     // Act
-    const textarea = document.querySelector('textarea');
+    const textarea = document.querySelector('#original-text');
     textarea.value = textToEncode;
     Simulate.change(textarea);
 
     act(() => {
       ReactDOM.render(
-        <EncoderText
-          encodedText={encodedText}
-          encoder={_ => ({
-            text: textToEncode,
-            words: [],
-          })}
-          setEncodedText={text => {
-              encodedText = text;
-          }}
-        />,
+        <AppContext.Provider>
+          <EncoderText
+            encoder={_ => ({
+              text: textToEncode,
+              words: [],
+            })}
+          />
+        </AppContext.Provider>,
         container
       );
     });
 
     // Assert
-    expect(encodedText).toEqual(textToEncode);
     expect(document.querySelector('#no-encoded-words')).not.toBeNull();
   });
 

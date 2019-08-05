@@ -1,5 +1,5 @@
 // Vendor
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // Internal
@@ -9,59 +9,37 @@ import PageTitle from './components/ui/PageTitle';
 import { encoder, simpleDecoder } from './utils';
 
 const Skin = styled.div`
-  display: flex;
-  width: 100%;
-  min-height: 100%;
-  font-family: 'Verdana', sans-serif;
   background-color: ${props => props.theme.light};
-
-  input,
-  textarea {
-    width: 100%;
-    border-radius: 0.2rem;
-    border: 1px solid ${props => props.theme.light};
-  }
-
-  input {
-    line-height: 1.5rem;
-  }
+  display: flex;
+  font-family: 'Verdana', sans-serif;
+  min-height: 100%;
+  width: 100%;
 `;
 
 const Root = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%
+  width: 100%;
 `;
 
 const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
-const App = () => {
-  const [encodedText, setEncodedText, ] = useState('');
-
-  return (
-    <Skin>
-      <Root>
-        <Container>
-          <PageTitle />
-          <EncoderText
-            encodedText={encodedText}
-            encoder={encoder}
-            setEncodedText={setEncodedText}
-          />
-          <DecoderText
-            decoder={simpleDecoder}
-            encodedText={encodedText}
-          />
-        </Container>
-      </Root>
-    </Skin>
-  );
-};
+const App = () => (
+  <Skin>
+    <Root>
+      <Container>
+        <PageTitle />
+        <EncoderText encoder={encoder}/>
+        <DecoderText decoder={simpleDecoder} />
+      </Container>
+    </Root>
+  </Skin>
+);
 
 export default App;

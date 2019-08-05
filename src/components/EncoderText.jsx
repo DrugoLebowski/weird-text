@@ -1,28 +1,29 @@
 // Vendor
 import PropTypes from 'prop-types';
-import React, { useState, } from 'react';
+import React from 'react';
 
 // Internal
+import AppContext from './contexts/AppContext';
 import Card from './ui/Card';
 import CardTitle from './ui/CardTitle';
+import Column from './ui/Column';
 import EncodedText from './ui/EncodedText';
+import EncodedWordsList from './ui/EncodedWordsList';
 import InputContainer from './ui/InputContainer';
 import InputContainerTitle from './ui/InputContainerTitle';
 import OutputContainer from './ui/OutputContainer';
 import OutputContainerTitle from './ui/OutputContainerTitle';
 import OutputContainerSubTitle from './ui/OutputContainerSubTitle';
-import EncodedWordsList from './ui/EncodedWordsList';
-import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
 import Row from './ui/Row';
-import Column from './ui/Column';
+import TextArea from './ui/TextArea';
+import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
 
 const EncoderText = ({
   encoder,
-  encodedText,
-  setEncodedText,
 }) => {
-  const [originalText, setOriginalText, ] = useState('');
-  const [encodedWords, setEncodedWords ] = useState([]);
+  const appContext = React.useContext(AppContext.Context);
+  const [ originalText, setOriginalText, ] = React.useState('');
+  const [ encodedWords, setEncodedWords ] = React.useState([]);
 
   const handleAddText = (e) => {
     const currentText = e.target.value;
@@ -31,8 +32,9 @@ const EncoderText = ({
       wordsWithLengthGeqFour
     );
 
+    appContext.dispatch({ type: 'setEncodedText', payload: encoderResult.text, });
+
     setOriginalText(currentText);
-    setEncodedText(encoderResult.text);
     setEncodedWords(encoderResult.words);
   };
 
@@ -51,13 +53,13 @@ const EncoderText = ({
             <InputContainerTitle>
               Text to encode
             </InputContainerTitle>
-            <textarea
+            <TextArea
               id='original-text'
               rows='5'
               value={originalText}
               onChange={handleAddText}/>
           </InputContainer>
-          {encodedText && (
+          {appContext.state.encodedText && (
             <OutputContainer>
               <OutputContainerTitle>
                 Output
@@ -65,7 +67,7 @@ const EncoderText = ({
               <OutputContainerSubTitle>
                 Encoded text
               </OutputContainerSubTitle>
-              <EncodedText text={encodedText} />
+              <EncodedText text={appContext.state.encodedText} />
               <OutputContainerSubTitle>
                 List of the original words that got encoded
               </OutputContainerSubTitle>
@@ -80,12 +82,6 @@ const EncoderText = ({
 
 EncoderText.propTypes = {
   encoder: PropTypes.func,
-  encodedText: PropTypes.string,
-  setEncodedText: PropTypes.func,
-};
-
-EncoderText.defaultProps = {
-  encodedText: '',
 };
 
 export default EncoderText;

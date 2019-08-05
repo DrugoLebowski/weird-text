@@ -1,33 +1,35 @@
 // Vendor
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 
 // Internal
+import AppContext from './contexts/AppContext';
 import Card from './ui/Card';
 import CardTitle from './ui/CardTitle';
+import Column from './ui/Column';
 import ErrorMessage from './ui/ErrorMessage';
+import Input from './ui/Input';
 import InputContainer from './ui/InputContainer';
 import InputContainerTitle from './ui/InputContainerTitle';
 import OutputContainer from './ui/OutputContainer';
-import OutputContainerTitle from './ui/OutputContainerTitle';
-import OutputContainerSubTitle from './ui/OutputContainerSubTitle';
 import OutputContainerParagraph from './ui/OutputContainerParagraph';
+import OutputContainerSubTitle from './ui/OutputContainerSubTitle';
+import OutputContainerTitle from './ui/OutputContainerTitle';
 import Row from './ui/Row';
-import Column from './ui/Column';
+import TextArea from './ui/TextArea';
+
 import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
 import searchDuck from '../utils/similarity';
 
-const DecoderText = ({
-  encodedText,
-  decoder,
-}) => {
-  const [errorMessage, setErrorMessage, ] = useState(null);
-  const [textToDecode, setTextToDecode, ] = useState('');
-  const [words, setWords, ] = useState('');
-  const [decodedText, setDecodedText, ] = useState('');
+const DecoderText = ({ decoder, }) => {
+  const appContext = React.useContext(AppContext.Context);
+  const [ errorMessage, setErrorMessage, ] = React.useState(null);
+  const [ textToDecode, setTextToDecode, ] = React.useState('');
+  const [ words, setWords, ] = React.useState('');
+  const [ decodedText, setDecodedText, ] = React.useState('');
 
   const onChangeCheckTextToDecode = (e) => {
-    if (textToDecode.trim() !== encodedText.trim()) {
+    if (textToDecode.trim() !== appContext.state.encodedText.trim()) {
       setErrorMessage('There is a mismatch among encoded text and the text to decode!');
       setDecodedText('');
       setWords('');
@@ -51,8 +53,8 @@ const DecoderText = ({
     );
   };
 
-  return encodedText &&
-    encodedText.length > 0 &&
+  return appContext.state.encodedText &&
+    appContext.state.encodedText.length > 0 &&
     (
       <Row>
         <Column
@@ -72,8 +74,8 @@ const DecoderText = ({
               <InputContainerTitle>
                 Text to decode
               </InputContainerTitle>
-              <textarea
-                id='encoded-textarea'
+              <TextArea
+                id="encoded-textarea"
                 rows="5"
                 value={textToDecode}
                 onChange={e => setTextToDecode(e.target.value)}
@@ -83,7 +85,7 @@ const DecoderText = ({
                   <InputContainerTitle>
                     List of the original words that got encoded, space separated.
                   </InputContainerTitle>
-                  <input 
+                  <Input
                     id='input-words'
                     type="text"
                     value={words}
@@ -112,13 +114,7 @@ const DecoderText = ({
 };
 
 DecoderText.propTypes = {
-  encodedText: PropTypes.string,
-  decoder: PropTypes.func,
-  setErrorMessage: PropTypes.func,
-};
-
-DecoderText.defaultProps = {
-  encodedText: '',
+  decoder: PropTypes.func.isRequired,
 };
 
 export default DecoderText;

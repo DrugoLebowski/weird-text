@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 
 // Internal
 import App from './App';
+import AppContext from './components/contexts/AppContext';
 
 const rootElement = document.getElementById('root')
 
@@ -20,7 +21,9 @@ const theme = {
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App />
+    <AppContext.Provider>
+      <App />
+    </AppContext.Provider>
   </ThemeProvider>,
   rootElement
 );

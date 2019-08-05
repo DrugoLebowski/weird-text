@@ -1,1 +1,1 @@
-export { default as wordsWithLengthGeqFour } from './words-with-length-geq-four';
+export { default as permutableWords } from './permutable-words';

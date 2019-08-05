@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  background-color: ${props => props.theme.error };
   border-radius: 0.2rem;
   color: white;
-  background-color: ${props => props.theme.error };
   margin-top: 1rem;
   padding: 1rem;
 `;
