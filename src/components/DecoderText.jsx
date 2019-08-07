@@ -18,7 +18,7 @@ import OutputContainerTitle from './ui/OutputContainerTitle';
 import Row from './ui/Row';
 import TextArea from './ui/TextArea';
 
-import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
+import { permutableWords } from '../utils/selection-criterias';
 import searchDuck from '../utils/similarity';
 
 const DecoderText = ({ decoder, }) => {
@@ -47,15 +47,14 @@ const DecoderText = ({ decoder, }) => {
       decoder(
         textToDecode,
         bagOfWords,
-        wordsWithLengthGeqFour,
+        permutableWords,
         searchDuck
       )
     );
   };
 
   return appContext.state.encodedText &&
-    appContext.state.encodedText.length > 0 &&
-    (
+    appContext.state.encodedText.length > 0 ? (
       <Row>
         <Column
           sm={6}
@@ -110,7 +109,7 @@ const DecoderText = ({ decoder, }) => {
           </Card>
         </Column>
       </Row>
-    );
+    ) : null;
 };
 
 DecoderText.propTypes = {

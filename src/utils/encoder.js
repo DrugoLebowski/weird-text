@@ -1,6 +1,5 @@
 // Internal
 import { isString, replaceAt, shuffle, } from '../utils/string';
-import { unshiftToArrayOfUnique } from '../utils/array';
 import { InvalidArgumentError } from '../utils/exceptions';
 
 /**

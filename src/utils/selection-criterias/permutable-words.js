@@ -15,7 +15,7 @@ export default function* (text) {
   const re = /[\w\dàòèéùì]{4,}/gu;
 
   let selectedText;
-  while (selectedText = re.exec(text)) {
+  while ((selectedText = re.exec(text)) !== null) {
     const numberOfCharacters = [
       ...new Set(selectedText[0].split(''))
     ].length;

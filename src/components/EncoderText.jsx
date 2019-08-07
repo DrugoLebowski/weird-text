@@ -16,7 +16,7 @@ import OutputContainerTitle from './ui/OutputContainerTitle';
 import OutputContainerSubTitle from './ui/OutputContainerSubTitle';
 import Row from './ui/Row';
 import TextArea from './ui/TextArea';
-import { wordsWithLengthGeqFour } from '../utils/selection-criterias';
+import { permutableWords } from '../utils/selection-criterias';
 
 const EncoderText = ({
   encoder,
@@ -29,7 +29,7 @@ const EncoderText = ({
     const currentText = e.target.value;
     const encoderResult = encoder(
       currentText,
-      wordsWithLengthGeqFour
+      permutableWords
     );
 
     appContext.dispatch({ type: 'setEncodedText', payload: encoderResult.text, });
